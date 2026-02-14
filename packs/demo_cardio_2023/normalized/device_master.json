@@ -1,0 +1,97 @@
+{
+  "device_name": "CardioStent-X",
+  "manufacturer": "CardioVascular Innovations GmbH",
+  "device_class": "IIb",
+  "classification_rule": "Rule 8",
+  "udi_di": "07640166380016",
+  "basic_udi_di": "07640166380009CV",
+  "intended_purpose": "CardioStent-X is a coronary drug-eluting stent intended for the treatment of de novo native coronary artery lesions in vessels with a reference diameter of 2.5 mm to 4.0 mm and lesion length up to 34 mm, to improve coronary luminal diameter in patients with symptomatic ischemic heart disease due to discrete stenotic lesions.",
+  "device_description": "A balloon-expandable, cobalt-chromium alloy stent with a bioabsorbable polymer coating eluting sirolimus. The stent is pre-mounted on a rapid-exchange delivery catheter system. Available in diameters from 2.5 to 4.0 mm and lengths from 8 to 38 mm.",
+  "variants": [
+    {
+      "variant_id": "CSX-2508",
+      "diameter_mm": 2.5,
+      "length_mm": 8
+    },
+    {
+      "variant_id": "CSX-2516",
+      "diameter_mm": 2.5,
+      "length_mm": 16
+    },
+    {
+      "variant_id": "CSX-2524",
+      "diameter_mm": 2.5,
+      "length_mm": 24
+    },
+    {
+      "variant_id": "CSX-3008",
+      "diameter_mm": 3,
+      "length_mm": 8
+    },
+    {
+      "variant_id": "CSX-3016",
+      "diameter_mm": 3,
+      "length_mm": 16
+    },
+    {
+      "variant_id": "CSX-3024",
+      "diameter_mm": 3,
+      "length_mm": 24
+    },
+    {
+      "variant_id": "CSX-3032",
+      "diameter_mm": 3,
+      "length_mm": 32
+    },
+    {
+      "variant_id": "CSX-3508",
+      "diameter_mm": 3.5,
+      "length_mm": 8
+    },
+    {
+      "variant_id": "CSX-3516",
+      "diameter_mm": 3.5,
+      "length_mm": 16
+    },
+    {
+      "variant_id": "CSX-3524",
+      "diameter_mm": 3.5,
+      "length_mm": 24
+    },
+    {
+      "variant_id": "CSX-3532",
+      "diameter_mm": 3.5,
+      "length_mm": 32
+    },
+    {
+      "variant_id": "CSX-4016",
+      "diameter_mm": 4,
+      "length_mm": 16
+    },
+    {
+      "variant_id": "CSX-4024",
+      "diameter_mm": 4,
+      "length_mm": 24
+    },
+    {
+      "variant_id": "CSX-4038",
+      "diameter_mm": 4,
+      "length_mm": 38
+    }
+  ],
+  "notified_body": "TÜV SÜD Product Service GmbH (NB 0123)",
+  "ec_certificate_number": "CE 680123/2021-MDD-001",
+  "ec_certificate_expiry": "2026-05-25",
+  "first_ce_marking_date": "2019-06-15",
+  "transition_to_mdr_date": "2024-05-26",
+  "applicable_standards": [
+    "ISO 13485:2016",
+    "ISO 14971:2019",
+    "EN ISO 25539-2:2013",
+    "IEC 62366-1:2015"
+  ],
+  "psur_version": "PSUR-2023-001",
+  "psur_period_start": "2023-01-01",
+  "psur_period_end": "2023-12-31",
+  "psur_author": "Regulatory Affairs Department"
+}

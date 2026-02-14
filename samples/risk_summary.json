@@ -1,0 +1,47 @@
+{
+  "risk_summary_version": "1.0",
+  "hazard_rows": [
+    {
+      "hazard_id": "HZ-001",
+      "hazard_name": "Device migration",
+      "harm": "Vessel occlusion requiring intervention",
+      "severity": 4,
+      "probability": 1,
+      "risk_level": "MEDIUM",
+      "residual_risk_level": "LOW",
+      "last_reviewed": "2023-12-15"
+    },
+    {
+      "hazard_id": "HZ-002",
+      "hazard_name": "Coating delamination",
+      "harm": "Thrombosis risk",
+      "severity": 5,
+      "probability": 1,
+      "risk_level": "HIGH",
+      "residual_risk_level": "MEDIUM",
+      "last_reviewed": "2023-12-15"
+    },
+    {
+      "hazard_id": "HZ-003",
+      "hazard_name": "Delivery system failure",
+      "harm": "Procedure failure requiring repeat intervention",
+      "severity": 3,
+      "probability": 2,
+      "risk_level": "MEDIUM",
+      "residual_risk_level": "LOW",
+      "last_reviewed": "2023-12-15"
+    },
+    {
+      "hazard_id": "HZ-004",
+      "hazard_name": "Biocompatibility reaction",
+      "harm": "Local tissue inflammation",
+      "severity": 2,
+      "probability": 2,
+      "risk_level": "LOW",
+      "residual_risk_level": "LOW",
+      "last_reviewed": "2023-12-15"
+    }
+  ],
+  "overall_benefit_risk_conclusion_prior": "Benefits outweigh risks. Device performance within acceptable limits based on 2022 surveillance data.",
+  "overall_benefit_risk_conclusion_current": "Benefits continue to outweigh risks. No new safety signals identified. CAPA-001 closed with confirmed effectiveness. CAPA-002 open — monitoring ongoing."
+}

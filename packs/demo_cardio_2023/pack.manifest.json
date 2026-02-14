@@ -1,0 +1,88 @@
+{
+  "packName": "demo_cardio_2023",
+  "device": {
+    "name": "CardioStent-X",
+    "manufacturer": "CardioVascular Innovations GmbH",
+    "deviceClass": "IIb"
+  },
+  "surveillancePeriod": {
+    "start": "2023-01-01",
+    "end": "2023-12-31"
+  },
+  "files": {
+    "required": [
+      {
+        "id": "device_master",
+        "filename": "device_master.json",
+        "type": "json",
+        "canonicalTarget": "device_master",
+        "notes": "Device identification, variants, UDI, regulatory metadata"
+      },
+      {
+        "id": "sales",
+        "filename": "sales.csv",
+        "type": "csv",
+        "canonicalTarget": "sales_exposure",
+        "notes": "Monthly sales/exposure data by country"
+      },
+      {
+        "id": "complaints",
+        "filename": "complaints.csv",
+        "type": "csv",
+        "canonicalTarget": "complaints",
+        "notes": "Full complaint records with problem/harm codes"
+      },
+      {
+        "id": "serious_incidents",
+        "filename": "serious_incidents.csv",
+        "type": "csv",
+        "canonicalTarget": "serious_incidents",
+        "notes": "Serious incident/adverse event records"
+      },
+      {
+        "id": "capa",
+        "filename": "capa.csv",
+        "type": "csv",
+        "canonicalTarget": "capa",
+        "notes": "Corrective and preventive actions"
+      },
+      {
+        "id": "risk_summary",
+        "filename": "risk_summary.json",
+        "type": "json",
+        "canonicalTarget": "risk_summary",
+        "notes": "Hazard assessment and benefit-risk conclusions"
+      }
+    ],
+    "optional": [
+      {
+        "id": "fsca",
+        "filename": "fsca.csv",
+        "type": "csv",
+        "canonicalTarget": "fsca",
+        "notes": "Field safety corrective actions"
+      },
+      {
+        "id": "literature",
+        "filename": "literature.csv",
+        "type": "csv",
+        "canonicalTarget": "literature",
+        "notes": "Literature review entries"
+      },
+      {
+        "id": "pmcf",
+        "filename": "pmcf.csv",
+        "type": "csv",
+        "canonicalTarget": "pmcf",
+        "notes": "Post-market clinical follow-up activities"
+      },
+      {
+        "id": "distribution",
+        "filename": "distribution.csv",
+        "type": "csv",
+        "canonicalTarget": "distribution",
+        "notes": "Market distribution by geography"
+      }
+    ]
+  }
+}

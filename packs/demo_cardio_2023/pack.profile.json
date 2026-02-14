@@ -1,0 +1,2158 @@
+{
+  "packName": "demo_cardio_2023",
+  "generatedAt": "2026-02-14T17:32:29.253Z",
+  "fileMappings": [
+    {
+      "fileId": "device_master",
+      "filename": "device_master.json",
+      "canonicalTarget": "device_master",
+      "columnMappings": [],
+      "dateParsingRules": [],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": []
+    },
+    {
+      "fileId": "sales",
+      "filename": "sales.csv",
+      "canonicalTarget": "sales_exposure",
+      "columnMappings": [
+        {
+          "sourceColumn": "period",
+          "targetColumn": "period",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "units_sold",
+          "targetColumn": "units_sold",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "country",
+          "targetColumn": "country",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "device_model",
+          "targetColumn": "device_model",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "period",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "units_sold",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "country",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "device_model",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "complaints",
+      "filename": "complaints.csv",
+      "canonicalTarget": "complaints",
+      "columnMappings": [
+        {
+          "sourceColumn": "complaint_id",
+          "targetColumn": "complaint_id",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "date_received",
+          "targetColumn": "date_received",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "event_date",
+          "targetColumn": "event_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "country",
+          "targetColumn": "country",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "device_model",
+          "targetColumn": "device_model",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "device_variant",
+          "targetColumn": "device_variant",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "lot_number",
+          "targetColumn": "lot_number",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "problem_code",
+          "targetColumn": "problem_code",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "problem_description",
+          "targetColumn": "problem_description",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "harm_code",
+          "targetColumn": "harm_code",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "harm_description",
+          "targetColumn": "harm_description",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "serious",
+          "targetColumn": "serious",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "reportable",
+          "targetColumn": "reportable",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "patient_outcome",
+          "targetColumn": "patient_outcome",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "capa_id",
+          "targetColumn": "capa_id",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "investigation_status",
+          "targetColumn": "investigation_status",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "root_cause_category",
+          "targetColumn": "root_cause_category",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [
+        {
+          "column": "date_received",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "column": "event_date",
+          "format": "YYYY-MM-DD"
+        }
+      ],
+      "booleanNormalizationRules": [
+        {
+          "column": "serious",
+          "trueValues": [
+            "true",
+            "1",
+            "yes",
+            "y",
+            "t"
+          ],
+          "falseValues": [
+            "false",
+            "0",
+            "no",
+            "n",
+            "f"
+          ]
+        },
+        {
+          "column": "reportable",
+          "trueValues": [
+            "true",
+            "1",
+            "yes",
+            "y",
+            "t"
+          ],
+          "falseValues": [
+            "false",
+            "0",
+            "no",
+            "n",
+            "f"
+          ]
+        }
+      ],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "complaint_id",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "date_received",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "event_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "country",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "device_model",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "device_variant",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "lot_number",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "problem_code",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "problem_description",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "harm_code",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "harm_description",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "serious",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "reportable",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "patient_outcome",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "capa_id",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "investigation_status",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "root_cause_category",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "serious_incidents",
+      "filename": "serious_incidents.csv",
+      "canonicalTarget": "serious_incidents",
+      "columnMappings": [
+        {
+          "sourceColumn": "incident_id",
+          "targetColumn": "incident_id",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "complaint_ref",
+          "targetColumn": "complaint_ref",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "date_reported",
+          "targetColumn": "date_reported",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "event_date",
+          "targetColumn": "event_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "country",
+          "targetColumn": "country",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "device_variant",
+          "targetColumn": "device_variant",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "lot_number",
+          "targetColumn": "lot_number",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "problem_code",
+          "targetColumn": "problem_code",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "harm_code",
+          "targetColumn": "harm_code",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "harm_description",
+          "targetColumn": "harm_description",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "severity",
+          "targetColumn": "severity",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "patient_outcome",
+          "targetColumn": "patient_outcome",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "ca_reference",
+          "targetColumn": "ca_reference",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "reportable_to",
+          "targetColumn": "reportable_to",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "report_date",
+          "targetColumn": "report_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "investigation_outcome",
+          "targetColumn": "investigation_outcome",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "related_capa",
+          "targetColumn": "related_capa",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "related_fsca",
+          "targetColumn": "related_fsca",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [
+        {
+          "column": "date_reported",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "column": "event_date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "column": "report_date",
+          "format": "YYYY-MM-DD"
+        }
+      ],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "incident_id",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "complaint_ref",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "date_reported",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "event_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "country",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "device_variant",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "lot_number",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "problem_code",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "harm_code",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "harm_description",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "severity",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "patient_outcome",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "ca_reference",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "reportable_to",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "report_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "investigation_outcome",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "related_capa",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "related_fsca",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "capa",
+      "filename": "capa.csv",
+      "canonicalTarget": "capa",
+      "columnMappings": [
+        {
+          "sourceColumn": "capa_id",
+          "targetColumn": "capa_id",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "initiation_date",
+          "targetColumn": "initiation_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "closure_date",
+          "targetColumn": "closure_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "status",
+          "targetColumn": "status",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "source",
+          "targetColumn": "source",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "related_complaints",
+          "targetColumn": "related_complaints",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "root_cause",
+          "targetColumn": "root_cause",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "corrective_action",
+          "targetColumn": "corrective_action",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "preventive_action",
+          "targetColumn": "preventive_action",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "effectiveness_check",
+          "targetColumn": "effectiveness_check",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "impact_summary",
+          "targetColumn": "impact_summary",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [
+        {
+          "column": "initiation_date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "column": "closure_date",
+          "format": "YYYY-MM-DD"
+        }
+      ],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "capa_id",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "initiation_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "closure_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "status",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "source",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "related_complaints",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "root_cause",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "corrective_action",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "preventive_action",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "effectiveness_check",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "impact_summary",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "risk_summary",
+      "filename": "risk_summary.json",
+      "canonicalTarget": "risk_summary",
+      "columnMappings": [],
+      "dateParsingRules": [],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": []
+    },
+    {
+      "fileId": "fsca",
+      "filename": "fsca.csv",
+      "canonicalTarget": "fsca",
+      "columnMappings": [
+        {
+          "sourceColumn": "fsca_id",
+          "targetColumn": "fsca_id",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "initiation_date",
+          "targetColumn": "initiation_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "completion_date",
+          "targetColumn": "completion_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "status",
+          "targetColumn": "status",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "title",
+          "targetColumn": "title",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "description",
+          "targetColumn": "description",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "affected_devices",
+          "targetColumn": "affected_devices",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "affected_countries",
+          "targetColumn": "affected_countries",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "root_cause",
+          "targetColumn": "root_cause",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "corrective_action",
+          "targetColumn": "corrective_action",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "units_affected",
+          "targetColumn": "units_affected",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "units_returned",
+          "targetColumn": "units_returned",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "related_capa",
+          "targetColumn": "related_capa",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "competent_authority_ref",
+          "targetColumn": "competent_authority_ref",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [
+        {
+          "column": "initiation_date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "column": "completion_date",
+          "format": "YYYY-MM-DD"
+        }
+      ],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "fsca_id",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "initiation_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "completion_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "status",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "title",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "description",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "affected_devices",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "affected_countries",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "root_cause",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "corrective_action",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "units_affected",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "units_returned",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "related_capa",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "competent_authority_ref",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "literature",
+      "filename": "literature.csv",
+      "canonicalTarget": "literature",
+      "columnMappings": [
+        {
+          "sourceColumn": "citation_id",
+          "targetColumn": "citation_id",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "authors",
+          "targetColumn": "authors",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "title",
+          "targetColumn": "title",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "journal",
+          "targetColumn": "journal",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "year",
+          "targetColumn": "year",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "doi",
+          "targetColumn": "doi",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "search_date",
+          "targetColumn": "search_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "search_strategy",
+          "targetColumn": "search_strategy",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "inclusion",
+          "targetColumn": "inclusion",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "relevance",
+          "targetColumn": "relevance",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "summary",
+          "targetColumn": "summary",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [
+        {
+          "column": "search_date",
+          "format": "YYYY-MM-DD"
+        }
+      ],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "citation_id",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "authors",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "title",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "journal",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "year",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "doi",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "search_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "search_strategy",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "inclusion",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "relevance",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "summary",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "pmcf",
+      "filename": "pmcf.csv",
+      "canonicalTarget": "pmcf",
+      "columnMappings": [
+        {
+          "sourceColumn": "activity_id",
+          "targetColumn": "activity_id",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "activity_type",
+          "targetColumn": "activity_type",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "title",
+          "targetColumn": "title",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "status",
+          "targetColumn": "status",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "start_date",
+          "targetColumn": "start_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "end_date",
+          "targetColumn": "end_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "enrollment_target",
+          "targetColumn": "enrollment_target",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "enrollment_actual",
+          "targetColumn": "enrollment_actual",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "sites",
+          "targetColumn": "sites",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "key_endpoints",
+          "targetColumn": "key_endpoints",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "interim_results",
+          "targetColumn": "interim_results",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "next_milestone",
+          "targetColumn": "next_milestone",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [
+        {
+          "column": "start_date",
+          "format": "YYYY-MM-DD"
+        },
+        {
+          "column": "end_date",
+          "format": "YYYY-MM-DD"
+        }
+      ],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "activity_id",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "activity_type",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "title",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "status",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "start_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "end_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "enrollment_target",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "enrollment_actual",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "sites",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "key_endpoints",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "interim_results",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "next_milestone",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "distribution",
+      "filename": "distribution.csv",
+      "canonicalTarget": "distribution",
+      "columnMappings": [
+        {
+          "sourceColumn": "country",
+          "targetColumn": "country",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "region",
+          "targetColumn": "region",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "market_entry_date",
+          "targetColumn": "market_entry_date",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "regulatory_status",
+          "targetColumn": "regulatory_status",
+          "confidence": 1
+        },
+        {
+          "sourceColumn": "notified_body_market",
+          "targetColumn": "notified_body_market",
+          "confidence": 1
+        }
+      ],
+      "dateParsingRules": [
+        {
+          "column": "market_entry_date",
+          "format": "YYYY-MM-DD"
+        }
+      ],
+      "booleanNormalizationRules": [],
+      "codeMappingDictionaries": [],
+      "derivedFieldRules": [],
+      "valueCleaningRules": [
+        {
+          "column": "country",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "region",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "market_entry_date",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "regulatory_status",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        },
+        {
+          "column": "notified_body_market",
+          "operations": [
+            "trim"
+          ],
+          "nullTokens": [
+            "",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "-",
+            "—"
+          ]
+        }
+      ]
+    }
+  ]
+}

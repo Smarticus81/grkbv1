@@ -1,0 +1,977 @@
+So let’s design a true wedge.
+
+Not “PSUR automation.”
+
+Not “AI compliance.”
+
+A wedge that is:
+
+Painful
+
+Expensive
+
+Recurring
+
+Audit-sensitive
+
+Hard to replace
+
+Narrow enough to dominate
+
+Expandable into infrastructure
+
+Step 1: Identify the Real Pain (Not the Theoretical One)
+
+Forget what’s interesting technically.
+
+Ask:
+
+Where do regulatory teams lose sleep?
+
+Not where they spend time.
+
+Where they lose sleep.
+
+Based on your background, the answer is almost certainly this:
+
+Benefit-Risk Determination in PSUR + Trend Justification under EU MDR.
+
+Why?
+
+Because:
+
+Article 86 + MDCG 2022-21 tightened expectations.
+
+Notified Bodies are increasingly aggressive.
+
+Statistical trending is inconsistent across manufacturers.
+
+Justifications are subjective.
+
+Cross-linking to risk management is often weak.
+
+Trend reporting (Article 88) is under-documented.
+
+CAPA linkage is messy.
+
+Evidence traceability is manual.
+
+This is not “write a PSUR.”
+
+This is:
+
+Prove that your device remains safe, statistically justified, and risk-balanced under scrutiny.
+
+That’s existential.
+
+Step 2: The True v1 Wedge
+
+Your v1 is:
+
+“Benefit-Risk Intelligence Engine for EU MDR PSURs”
+
+Not full PSUR generation.
+
+Not full document builder.
+
+A focused engine that:
+
+Ingests:
+
+Complaint data
+
+Sales/exposure data
+
+Serious incident data
+
+CAPA data
+
+Risk management file summary
+
+Performs:
+
+Complaint rate calculation
+
+Exposure normalization
+
+UCL (3-sigma) trending
+
+Western Electric rule detection
+
+RACT recalculation
+
+Residual risk delta detection
+
+Article 88 trend threshold analysis
+
+Generates:
+
+A defensible Benefit-Risk determination section
+
+A structured trend justification
+
+CAPA impact summary
+
+Risk file impact summary
+
+Produces:
+
+Machine-readable Decision Trace
+
+Graph of evidence → calculation → reasoning → conclusion
+
+Exportable audit report
+
+That’s it.
+
+No template builder.
+No UI configurator.
+No multi-artifact expansion.
+
+Just:
+
+“We make your PSUR Benefit-Risk section defensible.”
+
+That is sharp.
+
+Step 3: Why This Wedge Wins
+
+Let’s test it against infrastructure criteria.
+
+Painful?
+
+Yes. It’s the most scrutinized section.
+
+Recurring?
+
+Yes. Annual/biennial/triennial per class.
+
+Audit-sensitive?
+
+Absolutely.
+
+Hard?
+
+Statistical + regulatory + narrative alignment.
+
+Expandable?
+
+Directly into:
+
+CER updates
+
+PMCF reports
+
+Trend reporting engine
+
+Risk management auto-updates
+
+This wedge naturally expands into:
+
+Regulatory Execution Infrastructure.
+
+Step 4: What v1 Actually Contains
+
+Strip your build spec down to:
+
+Keep:
+
+grkb_regulations
+
+grkb_obligations (EU MDR + MDCG PSUR only)
+
+grkb_constraints (trend + temporal + referential)
+
+evidence_atoms
+
+decision_traces
+
+minimal generated_documents
+
+Cut (for now):
+
+Full multi-jurisdiction support
+
+Full template engine
+
+Neo4j
+
+Full frontend builder
+
+Extensive ISO library
+
+PMA/510(k) support
+
+Step 5: The Core v1 Flow
+
+This is your actual v1 execution model.
+
+Upload data:
+
+Complaints CSV
+
+Sales CSV
+
+CAPA summary
+
+Risk matrix summary
+
+Engine:
+
+Qualifies evidence
+
+Calculates rates
+
+Calculates UCL
+
+Detects trend violations
+
+Compares against prior period
+
+Maps to relevant obligations
+
+Generates benefit-risk narrative
+
+Records DTR
+
+Output:
+
+Benefit-Risk section text
+
+Structured statistical appendix
+
+Context graph
+
+Traceability export
+
+Time to result:
+< 2 minutes.
+
+That’s a demoable wedge.
+
+Step 6: Your Founding Team Advantage
+
+You three are not generic AI founders.
+
+You know:
+
+What NB reviewers look for.
+
+Where PSURs get rejected.
+
+What weak trend analysis looks like.
+
+How CAPA and risk files disconnect.
+
+Where narratives are overconfident.
+
+Where statistical misuse occurs.
+
+That insight becomes encoded into:
+
+Constraint rules
+
+Trend thresholds
+
+Confidence scoring
+
+Hallucination detection
+
+Regulatory language calibration
+
+That’s not something OpenAI can easily clone.
+
+That’s tacit regulatory knowledge.
+
+Step 7: The Positioning
+
+Do NOT market this as:
+
+“AI writes your PSUR.”
+
+Market it as:
+
+“Regulatory-grade Benefit-Risk Intelligence for EU MDR.”
+
+Or stronger:
+
+“Defensible Benefit-Risk Determination Engine.”
+
+That language attracts:
+
+PMS Managers
+
+RA Directors
+
+Notified Body–scarred companies
+
+Step 8: Expansion Path from Wedge
+
+After dominating Benefit-Risk:
+
+Add automatic Risk File delta detection.
+
+Add Article 88 automated trend reporting.
+
+Add CAPA trigger logic.
+
+Add CER delta summary.
+
+Expand to UK MDR.
+
+Expand to FDA trend analysis.
+
+Abstract to cross-artifact regulatory runtime.
+
+That’s infrastructure evolution.
+
+Step 9: The Founder-Level Question
+
+Are you building:
+
+A) A full-stack compliance suite to compete with Veeva?
+or
+B) The regulatory execution runtime that Veeva eventually integrates with?
+
+If unicorn is the goal, B is the right answer.
+
+Your wedge must be something Veeva does poorly but cannot ignore.
+
+Benefit-Risk intelligence fits that perfectly.
+
+
+RegulatoryOS v1 Wedge Spec (Clean-Room Rebuild)
+
+This spec defines a true v1 wedge: a narrowly-scoped, audit-grade engine that produces a Defensible Benefit–Risk & Trend Determination Package for EU MDR PSUR—with cryptographic decision traceability and evidence-to-claim lineage.
+
+This is infrastructure: other regulated-content agents can call it and inherit compliance enforcement + traceability.
+
+Cite: 
+
+REGULATORYOS_BUILD_SPEC
+
+0) Product Definition
+Product Name (v1)
+
+RegulatoryOS — Benefit–Risk & Trend Engine (EU MDR PSUR Wedge)
+
+Core Promise
+
+Given standard post-market inputs (complaints, sales/exposure, CAPA, risk summary), the system outputs:
+
+Trend Determination (SPC + Western Electric rules + explainability)
+
+Benefit–Risk Determination Narrative aligned to EU MDR + MDCG structure
+
+Audit Package (Decision Trace Records + hash chain + context graph)
+
+Exportable bundle (DOCX/PDF/JSONL/Graph formats)
+
+Non-goals (explicitly out of scope for v1)
+
+Full PSUR generation (all 12 MDCG sections)
+
+Multi-jurisdiction
+
+Template builder / drag-drop
+
+Neo4j graph DB
+
+Multi-tenant enterprise IAM
+
+Full ISO 42001 “certification workflow”
+
+1) Target Users & Buying Trigger
+Primary Users
+
+PMS / Postmarket Surveillance Managers
+
+RA/QA Directors
+
+PSUR Technical Writers
+
+Quality Engineers supporting trending
+
+Trigger Event
+
+Upcoming PSUR deadline
+
+NB audit finding / observation on trending or benefit–risk
+
+Internal “make this defensible” push after incidents or CAPA changes
+
+2) v1 Outputs (What the system must produce)
+2.1 Trend Package Output
+
+Complaint rate per 1,000 units (or per exposure unit)
+
+Monthly time series (12+ points preferred)
+
+Mean, std dev, UCL (3-sigma default)
+
+Western Electric violations (Rules 1–4)
+
+Determination: No Trend / Trend Detected / Inconclusive
+
+Justification narrative with:
+
+method references
+
+data sufficiency / limitations
+
+missing-data handling
+
+sensitivity notes (if enabled)
+
+2.2 Benefit–Risk Determination Output
+
+A narrative section that references:
+
+Summary of PMS findings and trend results
+
+CAPA status/impact summary
+
+Risk file delta summary (from provided risk summary input)
+
+Overall conclusion: benefit outweighs risk (or escalated for review)
+
+Constraints: must avoid medical claims not supported by evidence atoms
+
+2.3 Audit Package Output
+
+For every significant computation or generation step:
+
+Decision Trace Record (DTR) with:
+
+input lineage (source hashes)
+
+derived inputs (formula + codeHash)
+
+obligations referenced (IDs)
+
+reasoning steps (structured)
+
+claims extracted + verification links
+
+validation results
+
+context graph nodes/edges
+
+Hash chain linking DTRs within a case
+
+Exports:
+
+case.jsonl (DTR stream)
+
+case.graphml + case.cytoscape.json
+
+case.audit_summary.md/pdf
+
+2.4 Export Bundle
+
+A single zipped output:
+
+benefit_risk_section.docx
+
+trend_appendix.docx (tables + chart image)
+
+audit/ folder with trace exports
+
+3) v1 Workflow
+Step 1 — Create Case
+
+User creates a “case”:
+
+device name
+
+surveillance period (start/end)
+
+reporting cadence
+
+normalization basis: units / procedures / patient-days (v1 supports units; others as optional config)
+
+Step 2 — Upload Evidence Atoms
+
+Evidence types (minimum set):
+
+Complaints (CSV)
+
+Sales/Exposure (CSV)
+
+CAPA summary (CSV or JSON)
+
+Risk summary (JSON) (not full RMF; just summary)
+
+Step 3 — Qualification & Mapping
+
+System:
+
+computes SHA-256 of each upload
+
+validates schema + completeness scores
+
+maps fields into canonical schema
+
+flags missing fields and allows “field mapping” (minimal UI or config JSON)
+
+Step 4 — Compute Trend & Rates
+
+System:
+
+builds monthly series
+
+calculates rates, mean, std dev, UCL
+
+runs Western Electric rules
+
+generates determination + structured justification
+
+Step 5 — Generate Benefit–Risk Narrative
+
+System:
+
+uses a fixed narrative template (v1)
+
+injects computed results + CAPA and risk deltas
+
+produces narrative text + extracted claims list
+
+Step 6 — Validate + Trace + Export
+
+System:
+
+runs validation rules (critical/major/minor)
+
+writes DTRs + hash chain
+
+produces exports (docx + jsonl + graph)
+
+4) Data Contracts (Canonical Schemas)
+4.1 Complaints CSV → Canonical Complaint Record
+
+Required columns (v1):
+
+complaint_id (string)
+
+date_received (date)
+
+event_date (date optional)
+
+country (string optional)
+
+device_model (string optional)
+
+problem_code (string optional; IMDRF optional in v1)
+
+harm_code (string optional)
+
+serious (boolean optional)
+
+reportable (boolean optional)
+
+capa_id (string optional)
+
+outcome (string optional)
+
+4.2 Sales/Exposure CSV → Canonical Exposure Record
+
+Required:
+
+period (YYYY-MM)
+
+units_sold (number)
+
+Optional:
+
+country
+
+device_model
+
+4.3 CAPA Summary
+
+Required:
+
+capa_id
+
+initiation_date
+
+status (open/closed)
+
+root_cause (text optional)
+
+effectiveness_check (text optional)
+
+impact_summary (text optional)
+
+4.4 Risk Summary JSON (v1)
+
+Required:
+
+{
+  "risk_summary_version": "1.0",
+  "hazard_rows": [
+    {
+      "hazard_id": "HZ-001",
+      "hazard_name": "string",
+      "harm": "string",
+      "severity": 1,
+      "probability": 1,
+      "risk_level": "LOW|MEDIUM|HIGH",
+      "residual_risk_level": "LOW|MEDIUM|HIGH",
+      "last_reviewed": "YYYY-MM-DD"
+    }
+  ],
+  "overall_benefit_risk_conclusion_prior": "string",
+  "overall_benefit_risk_conclusion_current": "string"
+}
+
+5) GRKB v1 Scope (Minimum Regulatory Encoding)
+
+v1 GRKB includes only what’s needed for the wedge.
+
+Regulations (seed)
+
+EU MDR 2017/745 (subset)
+
+MDCG 2022-21 (subset)
+
+Obligations (seed)
+
+Encode only obligations required for:
+
+PSUR trending / complaint analysis expectations (MDCG sections relevant)
+
+Benefit–risk summary expectations
+
+Trend reporting linkage (Article 88 conceptually, as constraint expectations)
+
+Note: v1 can store citations as strings; obligation IDs must be stable.
+
+Obligation IDs example:
+
+EU_MDR_ART86_1 (PSUR content expectations)
+
+EU_MDR_ART88 (trend reporting expectation)
+
+MDCG_2022_21_SEC5_TRENDS
+
+MDCG_2022_21_SEC11_BENEFIT_RISK
+
+Constraints (v1)
+
+Critical constraints:
+
+Surveillance period coverage matches user-defined dates
+
+Exposure denominator present and non-zero
+
+Minimum datapoints for UCL (>= 12 months) else “Inconclusive” with warning
+
+Any “Trend Detected” must be accompanied by rule violation evidence
+
+Narrative must reference computed rate + UCL + period range
+
+Claims must link to at least one evidence atom or derived input
+
+6) Decision Trace Protocol (v1 Minimal)
+6.1 DTR Types (v1)
+
+DATA_QUALIFICATION
+
+DERIVED_SERIES_GENERATION
+
+RATE_CALCULATION
+
+UCL_CALCULATION
+
+WESTERN_ELECTRIC_EVALUATION
+
+TREND_DETERMINATION
+
+BENEFIT_RISK_NARRATIVE_GENERATION
+
+CLAIM_EXTRACTION
+
+VALIDATION_DECISION
+
+EXPORT_GENERATION
+
+6.2 DTR Required Fields (v1)
+
+Every DTR must include:
+
+trace_id, case_id, chain_position
+
+initiated_at, completed_at, duration_ms
+
+input_lineage.primary_sources[] (with source_hash)
+
+derived_inputs[] (formula + codeHash)
+
+regulatory_context.obligations.primary[]
+
+reasoning_chain.steps[] (structured steps)
+
+output_content (structured + narrative as applicable)
+
+validation_results (pass/fail + messages)
+
+hash_chain.content_hash, hash_chain.previous_hash, merkle_root
+
+6.3 Hashing Rules
+
+All evidence atoms hashed with SHA-256 of raw bytes
+
+All derived inputs hashed using:
+
+formula
+
+parameters
+
+codeHash
+
+upstream source hashes
+
+DTR content hash = canonical JSON with sorted keys
+
+7) System Architecture (v1)
+Runtime
+
+Node.js 20+
+
+TypeScript
+
+Postgres 16
+
+Redis (optional; can defer)
+
+Core Modules
+
+evidence/ — upload, hashing, qualification, field mapping
+
+analytics/ — rate, series, UCL, western electric
+
+grkb/ — obligations, constraints, validations
+
+trace/ — DTR recorder, hash chain, exporters
+
+generation/ — narrative templating + LLM calls
+
+exports/ — DOCX render + chart generation + zip bundling
+
+api/ — minimal REST
+
+AI Provider
+
+Claude (primary)
+
+Model config stored per org (single org in v1)
+
+8) Database Schema (v1 Minimal)
+8.1 Tables
+
+cases
+
+evidence_atoms
+
+derived_inputs
+
+grkb_regulations
+
+grkb_obligations
+
+grkb_constraints
+
+validation_rules
+
+decision_traces
+
+generated_outputs
+
+Keep them simple; avoid premature multi-tenant complexity.
+
+9) API Spec (v1)
+Cases
+
+POST /v1/cases
+
+GET /v1/cases/:caseId
+
+Evidence
+
+POST /v1/cases/:caseId/evidence (multipart upload)
+
+POST /v1/cases/:caseId/evidence/:atomId/qualify
+
+GET /v1/cases/:caseId/evidence
+
+Compute
+
+POST /v1/cases/:caseId/compute/trend
+
+POST /v1/cases/:caseId/generate/benefit-risk
+
+Validate & Export
+
+POST /v1/cases/:caseId/validate
+
+POST /v1/cases/:caseId/export → returns zip
+
+Trace
+
+GET /v1/cases/:caseId/traces (JSONL stream)
+
+GET /v1/cases/:caseId/graph (Cytoscape JSON)
+
+10) Validation Rules (v1)
+Critical
+
+Missing denominator → block
+
+Denominator == 0 → block
+
+Surveillance period mismatch → block
+
+Trend declared without rule evidence → block
+
+Benefit–risk conclusion without trend summary → block
+
+Major
+
+<12 datapoints for UCL → warn + set “Inconclusive”
+
+CAPA dataset missing → warn + narrative limitation required
+
+Risk summary missing → warn + narrative limitation required
+
+Minor
+
+Missing optional fields (country/model/problem codes)
+
+11) Document Output (v1)
+11.1 DOCX Outputs
+
+trend_appendix.docx
+
+input summary table
+
+monthly rates table
+
+mean/std/ucl table
+
+trend determination section
+
+a chart image (line chart; generate server-side)
+
+benefit_risk_section.docx
+
+period statement
+
+trend summary
+
+CAPA impact
+
+risk summary delta
+
+conclusion statement
+
+limitations section (auto-populated)
+
+11.2 Audit Outputs
+
+audit.jsonl (DTRs)
+
+context_graph.graphml
+
+context_graph.cytoscape.json
+
+audit_summary.md
+
+12) Build Order (v1)
+Phase A — Skeleton
+
+Repo setup, lint, test harness
+
+Postgres + migrations
+
+Minimal REST API
+
+Phase B — Evidence & Qualification
+
+Upload + hashing
+
+Canonical schema validation + mapping
+
+Evidence atoms persisted
+
+Phase C — Analytics Engine
+
+Monthly series generation
+
+Rate calculation
+
+UCL calculation
+
+Western Electric evaluation
+
+Trend determination
+
+Phase D — GRKB + Validation
+
+Seed obligations + constraints (subset)
+
+Rule engine (critical/major/minor)
+
+Phase E — DTR + Hash Chain
+
+DTR schema + recorder
+
+Hash chain + merkle root
+
+Exporters: JSONL + graph
+
+Phase F — Narrative + Outputs
+
+Benefit–risk narrative generator (LLM + fixed template)
+
+Claim extraction + claim-to-evidence linking
+
+DOCX generation + chart embed
+
+Zip bundler
+
+Phase G — End-to-End Demo
+
+One-click: upload → compute → generate → export
+
+Golden test dataset with snapshot outputs
+
+13) Acceptance Criteria (v1 “Done”)
+
+A single EU MDR Class IIb example case must:
+
+Compute trend package successfully
+
+Produce defensible conclusion or “Inconclusive” with explicit limitations
+
+Generate benefit–risk narrative that references:
+
+computed rate
+
+UCL
+
+surveillance period
+
+CAPA summary status
+
+risk delta summary
+
+Produce verifiable audit artifacts:
+
+DTR chain validates valid: true
+
+JSONL exports reconstruct the case
+
+Context graph renders nodes/edges
+
+Export zip contains all required outputs

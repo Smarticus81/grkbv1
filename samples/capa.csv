@@ -1,0 +1,3 @@
+capa_id,initiation_date,status,root_cause,effectiveness_check,impact_summary
+CAPA-001,2023-03-01,closed,Manufacturing process deviation in coating step,Effectiveness confirmed via 3-month follow-up,Updated coating procedure SOP; no recurrence in subsequent batches
+CAPA-002,2023-07-15,open,Packaging seal integrity issue under high humidity,Pending 6-month effectiveness review,Enhanced packaging specification and incoming QC inspection added
