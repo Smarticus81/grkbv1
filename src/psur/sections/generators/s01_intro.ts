@@ -73,8 +73,8 @@ export function generateS01(ctx: Ctx): SectionResult {
     `This Periodic Safety Update Report (PSUR) covers ${ctx.deviceMaster.device_name} ` +
     `manufactured by ${ctx.deviceMaster.manufacturer} for the surveillance period ` +
     `${ctx.periodStart} to ${ctx.periodEnd}. ` +
-    `This PSUR is prepared in accordance with Article 86 of Regulation (EU) 2017/745 ` +
-    `(EU MDR) and the guidance provided in MDCG 2022-21. ` +
+    `This PSUR is prepared to fulfil the manufacturer\u2019s post-market surveillance ` +
+    `reporting obligations for the device. ` +
     `The purpose of this report is to provide a comprehensive analysis of post-market ` +
     `surveillance data collected during the reporting period, to evaluate the continued ` +
     `safety and performance of the device, and to determine whether the overall ` +

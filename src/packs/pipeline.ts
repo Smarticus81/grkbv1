@@ -15,7 +15,7 @@ import { DTRRecorder } from "../trace/dtr.js";
 import { AgentRuntime } from "../agents/runtime.js";
 import { validateApiKey } from "../generation/llm_client.js";
 
-import { serializePSUROutput } from "../templates/psur_output.js";
+import { serializePSUROutput, serializePSUROutputForExport } from "../templates/psur_output.js";
 import type { PSUROutput } from "../templates/psur_output.js";
 import type { RenderResult } from "../templates/renderer.js";
 import type { PackManifest } from "./types.js";
@@ -77,7 +77,9 @@ export async function runPackPipeline(
   const reconciliation = result.store.get<ReconciliationResult>("reconciliation", caseId);
   const llmCalls = result.store.get<SectionLLMCall[]>("llm_calls", caseId);
   const allValidation = result.store.get<ValidationResult[]>("validation_results", caseId);
-  const trendChartImage = result.store.get<Buffer>("chart_buffer", caseId);
+  const trendChartImage = result.store.has("chart_buffer", caseId)
+    ? result.store.get<Buffer>("chart_buffer", caseId)
+    : undefined;
   const auditExports = result.store.get<{
     auditJsonl: string;
     contextGraph: string;
@@ -121,10 +123,10 @@ export async function runPackPipeline(
   // Template-rendered DOCX (primary output)
   writeFileSync(path.join(outDir, "psur", "output.docx"), renderResult.docxBuffer);
 
-  // Canonical JSON contract
+  // Canonical JSON contract (A-M section keys for FormQAR-054 compliance)
   writeFileSync(
     path.join(outDir, "psur", "output.json"),
-    JSON.stringify(serializePSUROutput(psurOutput), null, 2),
+    JSON.stringify(serializePSUROutputForExport(psurOutput), null, 2),
   );
 
   // Template provenance
@@ -151,6 +153,16 @@ export async function runPackPipeline(
     path.join(outDir, "data", "computation_context.json"),
     auditExports.computationContext,
   );
+
+  // QA Audit Report (MDCG 2022-21 compliance scoring)
+  if (result.store.has("qa_audit_report", caseId)) {
+    const qaReport = result.store.get<unknown>("qa_audit_report", caseId);
+    writeFileSync(
+      path.join(outDir, "audit", "qa_audit_report.json"),
+      JSON.stringify(qaReport, null, 2),
+    );
+  }
+
   // case_export.zip is available via the API/export_bundle task but not written
   // to the pipeline output directory — the psur/ folder is the canonical output.
 

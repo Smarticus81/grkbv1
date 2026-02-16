@@ -208,8 +208,7 @@ export function generateS05(ctx: Ctx): SectionResult {
     `a total of ${ca.totalComplaints} complaint(s) were received for ` +
     `${ctx.deviceMaster.device_name} against ${totalUnits} units sold. ` +
     `Of these, ${ca.seriousCount} were classified as serious complaints and ` +
-    `${ca.reportableCount} were reportable to competent authorities under ` +
-    `Article 87 of Regulation (EU) 2017/745. ` +
+    `${ca.reportableCount} were reportable to competent authorities. ` +
     `\n\n` +
     `Complaint rate analysis was performed using Statistical Process Control (SPC) ` +
     `methodology over ${tr.monthlySeries.length} monthly periods. ` +

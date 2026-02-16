@@ -5,8 +5,11 @@
  * Per-section DTR records are emitted for auditing.
  */
 
+import path from "path";
 import { enhanceSectionNarrative, enhanceSectionNarrativeWithCorrection } from "../../generation/llm_client.js";
 import { buildAllowedNumbersSet, runNumbersGate } from "../numbers_gate.js";
+import { tryLoadGuidance, buildSectionGuidancePrompt } from "../../templates/guidance_loader.js";
+import type { AgentGuidance } from "../../templates/guidance_loader.js";
 import type { GateResult } from "../numbers_gate.js";
 import type { SectionResult } from "../../psur/context.js";
 import type { EvidenceAtomRef } from "../../psur/context.js";
@@ -26,14 +29,24 @@ export const handleLLMEnhanceSections: TaskHandler = async (input, store, config
   // Build allowed numbers set for gate check — always active in strict mode
   const allowedNumbers = buildAllowedNumbersSet(store, config.caseId);
 
+  // Load agent guidance for per-section instructions
+  const rootDir = config.packDir ? path.resolve(config.packDir, "..", "..") : undefined;
+  const guidance: AgentGuidance | null = tryLoadGuidance(rootDir);
+
   for (const section of sections) {
     const sectionT0 = new Date();
     const originalNarrative = section.narrative;
+
+    // Get per-section guidance from psur_agent_guidance.json
+    const sectionGuidance = guidance
+      ? buildSectionGuidancePrompt(guidance, section.sectionId)
+      : undefined;
 
     let result = await enhanceSectionNarrative(
       section.sectionId,
       section.title,
       section.narrative,
+      sectionGuidance || undefined,
     );
 
     // Numbers gate check with retry loop — up to MAX_GATE_RETRIES corrective attempts

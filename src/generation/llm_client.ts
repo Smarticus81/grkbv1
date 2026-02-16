@@ -65,14 +65,46 @@ function getSDKVersion(): string {
 }
 
 const SECTION_SYSTEM_PROMPT =
-  `You are a regulatory affairs specialist enhancing EU MDR PSUR section narratives.\n` +
-  `Rules:\n` +
+  `You are a regulatory affairs specialist enhancing PSUR section narratives.\n` +
+  `\n` +
+  `CRITICAL RULES:\n` +
   `- Preserve ALL factual claims, numbers, and references from the original text EXACTLY\n` +
   `- Do NOT add, infer, or calculate any new numbers, percentages, rates, or statistics\n` +
-  `- Enhance regulatory language, flow, and clarity for Notified Body review\n` +
+  `- If the original has no percentages or breakdowns, do not invent them\n` +
   `- Keep section structure intact\n` +
-  `- Use formal EU MDR regulatory terminology\n` +
-  `- If the original has no percentages or breakdowns, do not invent them`;
+  `\n` +
+  `WRITING STYLE:\n` +
+  `- Third-person present tense. Passive voice where appropriate for objectivity\n` +
+  `- Professional regulatory tone. No first person (I, we, our). No promotional language\n` +
+  `- Full narrative paragraphs only. Never use bullet points, numbered lists, or markdown formatting\n` +
+  `- Write lists naturally in prose (e.g., "sources include X, Y, and Z")\n` +
+  `\n` +
+  `ABSOLUTELY FORBIDDEN — REGULATION CITATIONS:\n` +
+  `- Do NOT cite specific regulation numbers (e.g., "Regulation (EU) 2017/745")\n` +
+  `- Do NOT cite article numbers (e.g., "Article 86", "Article 87")\n` +
+  `- Do NOT cite standard clause numbers (e.g., "ISO 14971", "ISO 13485")\n` +
+  `- Do NOT cite guidance document sections (e.g., "MDCG 2022-21")\n` +
+  `- Do NOT reference "Annex I", "Annex VIII", "Annex XIV", or similar\n` +
+  `- Do NOT use abbreviations like "EU MDR", "MDD", or "IVDR" as normative references\n` +
+  `- Simply state facts and requirements without referencing their regulatory source\n` +
+  `- The compliance framework is built into the template structure itself\n` +
+  `\n` +
+  `QUANTITATIVE RIGOR:\n` +
+  `- Every claim must be backed by a specific number from the source text\n` +
+  `- Use exact counts, rates (to 2 decimal places), and percentages (to 1 decimal place)\n` +
+  `\n` +
+  `BENEFIT-RISK THREAD:\n` +
+  `- Every section must contain at least one sentence connecting its findings to the ` +
+  `overall benefit-risk profile\n` +
+  `\n` +
+  `CONCISENESS:\n` +
+  `- Target 200-400 words per section narrative (except Section B: up to 600 words)\n` +
+  `- Section M (Conclusions): maximum 500 words — synthesize, do not restate\n` +
+  `- Use "during the reporting period" at most ONCE per section\n` +
+  `- Use "benefit-risk" at most TWICE per section\n` +
+  `- Use device name at most TWICE per section — use "the device" thereafter\n` +
+  `- Each paragraph must introduce NEW information — never restate the previous paragraph\n` +
+  `- Never use filler phrases like "the manufacturer's commitment to continuous improvement"`;
 
 /**
  * Validate that a usable API key is configured.
@@ -160,20 +192,29 @@ export async function callLLM(params: {
 
 /**
  * Enhance a PSUR section narrative using the LLM.
- * Preserves all factual claims while improving regulatory language.
+ * Preserves all factual claims while improving clarity and flow.
+ * Optional sectionGuidance injects field-level instructions from psur_agent_guidance.json.
  */
 export async function enhanceSectionNarrative(
   sectionId: string,
   sectionTitle: string,
   narrative: string,
+  sectionGuidance?: string,
 ): Promise<LLMCallResult> {
+  const guidanceBlock = sectionGuidance
+    ? `\n--- SECTION GUIDANCE ---\n${sectionGuidance}\n--- END GUIDANCE ---\n\n`
+    : "";
+
   return callLLM({
     systemPrompt: SECTION_SYSTEM_PROMPT,
     userPrompt:
       `Enhance the following PSUR section narrative for regulatory submission.\n\n` +
       `Section: ${sectionId} — ${sectionTitle}\n\n` +
+      guidanceBlock +
       `--- ORIGINAL NARRATIVE ---\n${narrative}\n--- END ---\n\n` +
-      `Produce an enhanced version preserving all factual claims and data points.`,
+      `Produce an enhanced version preserving all factual claims and data points. ` +
+      `Do NOT include any regulation citations, article numbers, or standard references. ` +
+      `Write in full narrative paragraphs only — no markdown, no bullet points, no numbered lists.`,
     maxTokens: 3000,
   });
 }
@@ -202,7 +243,9 @@ export async function enhanceSectionNarrativeWithCorrection(
       `REJECTED NUMBERS: [${violations.join(", ")}]\n\n` +
       `These numbers do NOT appear in the source data and MUST NOT be used.\n` +
       `Re-enhance the ORIGINAL NARRATIVE. Use ONLY numbers that appear in the original text.\n` +
-      `Do NOT add, infer, calculate, or round any new numbers, percentages, rates, or statistics.`,
+      `Do NOT add, infer, calculate, or round any new numbers, percentages, rates, or statistics.\n` +
+      `Do NOT include any regulation citations, article numbers, or standard references.\n` +
+      `Write in full narrative paragraphs only — no markdown, no bullet points, no numbered lists.`,
     maxTokens: 3000,
   });
 }

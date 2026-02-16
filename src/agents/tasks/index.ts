@@ -12,6 +12,7 @@ export { handleBuildAnnexTables } from "./build_annex_tables.js";
 export { handleGenerateSections } from "./generate_sections.js";
 export { handleLLMEnhanceSections } from "./llm_enhance_sections.js";
 export { handleValidatePsur } from "./validate_psur.js";
+export { handleQAAudit } from "./qa_audit.js";
 export { handleRenderDocx } from "./render_docx.js";
 export { handleExportBundle } from "./export_bundle.js";
 export { handleVerifyTraceChain } from "./verify_trace_chain.js";

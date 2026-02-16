@@ -66,7 +66,7 @@ export const handleRenderDocx: TaskHandler = async (input, store, config) => {
 
   // templateId and clientId propagated via config from CLI
   const resolved = registry.resolve(config.templateId, config.clientId);
-  const renderResult = await renderWithTemplate(psurOutput, resolved);
+  const renderResult = await renderWithTemplate(psurOutput, resolved, ctx);
 
   store.set("docx_buffer", config.caseId, renderResult.docxBuffer);
   store.set("template_used", config.caseId, {

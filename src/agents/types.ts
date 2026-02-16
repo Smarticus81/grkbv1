@@ -21,6 +21,7 @@ export type PsurTaskType =
   | "GENERATE_SECTIONS"
   | "LLM_ENHANCE_SECTIONS"
   | "VALIDATE_PSUR"
+  | "QA_AUDIT"
   | "RENDER_DOCX"
   | "EXPORT_BUNDLE"
   | "VERIFY_TRACE_CHAIN";
@@ -47,7 +48,8 @@ export type ProducedRefKind =
   | "zip_bundle"
   | "chain_verification"
   | "psur_output"
-  | "template_used";
+  | "template_used"
+  | "qa_audit_report";
 
 // ── Reference & Bundle Types ───────────────────────────────────────
 

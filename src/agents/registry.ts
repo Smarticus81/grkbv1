@@ -14,6 +14,7 @@ import {
   handleGenerateSections,
   handleLLMEnhanceSections,
   handleValidatePsur,
+  handleQAAudit,
   handleRenderDocx,
   handleExportBundle,
   handleVerifyTraceChain,
@@ -76,9 +77,14 @@ export const TASK_DEFINITIONS: TaskDefinition[] = [
     dependsOn: ["VALIDATE_PSUR"],
   },
   {
+    taskType: "QA_AUDIT",
+    handler: handleQAAudit,
+    dependsOn: ["RENDER_DOCX"],
+  },
+  {
     taskType: "EXPORT_BUNDLE",
     handler: handleExportBundle,
-    dependsOn: ["RENDER_DOCX"],
+    dependsOn: ["QA_AUDIT"],
   },
   {
     taskType: "VERIFY_TRACE_CHAIN",

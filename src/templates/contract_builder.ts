@@ -45,6 +45,16 @@ export function buildPSUROutput(input: ContractBuildInput): PSUROutput {
     notifiedBody: ctx.deviceMaster.notified_body,
     certificateNumber: ctx.deviceMaster.ec_certificate_number,
     reportDate: new Date().toISOString().split("T")[0],
+    // Extended device master fields
+    classificationRule: ctx.deviceMaster.classification_rule,
+    udiDI: ctx.deviceMaster.udi_di,
+    basicUdiDI: ctx.deviceMaster.basic_udi_di,
+    intendedPurpose: ctx.deviceMaster.intended_purpose,
+    deviceDescription: ctx.deviceMaster.device_description,
+    firstCeMarkingDate: ctx.deviceMaster.first_ce_marking_date,
+    ecCertificateExpiry: (ctx.deviceMaster as any).ec_certificate_expiry ?? "",
+    applicableStandards: ctx.deviceMaster.applicable_standards,
+    variants: ctx.deviceMaster.variants,
   };
 
   // ── Sections ────────────────────────────────────────────────

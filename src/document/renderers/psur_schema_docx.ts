@@ -35,8 +35,8 @@ import {
   convertInchesToTwip,
 } from "docx";
 
-import type { MappedPSUR, MappedSection, MappedTable, MappedCoverPage } from "./output_to_template_mapper.js";
-import type { TemplateJson, TableLayout, MergedCell, ThemeConfig } from "./template_schema.js";
+import type { MappedPSUR, MappedSection, MappedTable, MappedCoverPage, MappedSubsection } from "../../templates/output_to_template_mapper.js";
+import type { TemplateJson, TableLayout, MergedCell, ThemeConfig } from "../../templates/template_schema.js";
 
 // ── Theme-Driven Constants ──────────────────────────────────────────
 
@@ -613,6 +613,30 @@ function buildSectionElement(
     const paragraphs = section.narrative.split("\n").filter((p) => p.trim().length > 0);
     for (const para of paragraphs) {
       elements.push(bodyParagraph(para.trim(), theme));
+    }
+  }
+
+  // Render subsections (heading + body content) between narrative and tables
+  if (section.subsections && section.subsections.length > 0) {
+    for (const sub of section.subsections) {
+      elements.push(
+        new Paragraph({
+          heading: HeadingLevel.HEADING_2,
+          spacing: { before: 240, after: 120 },
+          children: [
+            new TextRun({
+              text: sub.heading,
+              bold: theme.headerBold,
+              size: theme.h2Size,
+              font: theme.font,
+            }),
+          ],
+        }),
+      );
+      const subParagraphs = sub.content.split("\n").filter((p) => p.trim().length > 0);
+      for (const sp of subParagraphs) {
+        elements.push(bodyParagraph(sp.trim(), theme));
+      }
     }
   }
 

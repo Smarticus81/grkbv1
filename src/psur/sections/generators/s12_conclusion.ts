@@ -93,15 +93,14 @@ export function generateS12(ctx: Ctx): SectionResult {
     `Current risk management conclusion: ${ctx.riskAnalytics.currentConclusion}. ` +
     `\n\nConclusion: Based on the totality of evidence evaluated in this report, ` +
     `${ctx.deviceMaster.manufacturer} concludes that ${ctx.deviceMaster.device_name} continues to meet ` +
-    `the applicable General Safety and Performance Requirements (GSPR) as set out in Annex I ` +
-    `of Regulation (EU) 2017/745. The overall benefit\u2013risk balance remains acceptable. ` +
+    `the applicable General Safety and Performance Requirements. The overall benefit\u2013risk balance remains acceptable. ` +
     `No new unacceptable risks have been identified. ` +
     (criticalFailures.length > 0
       ? `\n\nNote: ${criticalFailures.length} critical validation finding(s) require attention: ` +
         criticalFailures.map((f) => f.message).join("; ") + ". "
       : "") +
-    `\n\nPlanned actions for the next reporting period:\n` +
-    actions.map((a, i) => `${i + 1}. ${a}`).join("\n");
+    `\n\nPlanned actions for the next reporting period: ` +
+    actions.join(" ");
 
   const claims = extractClaims(narrative, sectionId, evidenceAtomIds, derivedInputIds);
 

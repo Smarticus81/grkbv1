@@ -91,7 +91,7 @@ export function generateS02(ctx: Ctx): SectionResult {
 
   const narrative =
     `${dm.device_name} is a ${dm.device_class} medical device classified under ` +
-    `Rule ${dm.classification_rule} of Annex VIII of Regulation (EU) 2017/745. ` +
+    `classification Rule ${dm.classification_rule}. ` +
     `The Unique Device Identifier \u2013 Device Identifier (UDI-DI) is ${dm.udi_di} ` +
     `and the Basic UDI-DI is ${dm.basic_udi_di}. ` +
     `Intended purpose: ${dm.intended_purpose}. ` +

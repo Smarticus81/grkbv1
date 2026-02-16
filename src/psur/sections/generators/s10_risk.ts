@@ -127,7 +127,6 @@ export function generateS10(ctx: Ctx): SectionResult {
 
   const narrative =
     `The risk management file for ${ctx.deviceMaster.device_name} was reviewed ` +
-    `in accordance with ISO 14971 and Annex I of Regulation (EU) 2017/745 ` +
     `for the surveillance period ${ctx.periodStart} to ${ctx.periodEnd}. ` +
     `A total of ${risk.totalHazards} hazard(s) are documented in the risk ` +
     `management file. ` +

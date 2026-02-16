@@ -16,9 +16,11 @@ import Docxtemplater from "docxtemplater";
 import ImageModule from "docxtemplater-image-module-free";
 
 import { renderPsurDocx } from "../document/renderers/psur_docx.js";
-import { renderSchemaDocx } from "../document/renderers/psur_schema_docx.js";
+import { renderFormDocx } from "../document/renderers/psur_form_docx.js";
 import { loadTemplateJson } from "./template_loader.js";
 import { mapOutputToTemplate } from "./output_to_template_mapper.js";
+import { inferFields } from "./contextual_inference.js";
+import type { PsurComputationContext } from "../psur/context.js";
 import type { PSUROutput } from "./psur_output.js";
 import type { ResolvedTemplate, TemplateManifest } from "./types.js";
 
@@ -36,14 +38,15 @@ export interface RenderResult {
 export async function renderWithTemplate(
   output: PSUROutput,
   resolved: ResolvedTemplate,
+  ctx?: PsurComputationContext,
 ): Promise<RenderResult> {
   const { manifest } = resolved;
 
   let docxBuffer: Buffer;
 
-  // Priority 1: Schema-driven rendering via template.json (highest fidelity)
+  // Priority 1: Schema-driven form rendering via template.json (highest fidelity)
   if (resolved.templateJsonPath) {
-    docxBuffer = await renderFromSchema(output, resolved.templateJsonPath);
+    docxBuffer = await renderFromSchema(output, resolved.templateJsonPath, ctx);
   } else if (manifest.type === "builtin" && !resolved.docxPath) {
     // Priority 2: Pure programmatic builtin (no DOCX template file available)
     docxBuffer = await renderBuiltin(output);
@@ -119,16 +122,18 @@ async function renderBuiltin(output: PSUROutput): Promise<Buffer> {
 
 /**
  * Render using template.json schema: load template, map output, render.
- * This produces highest-fidelity DOCX with merged headers, hierarchical
- * tables, and theme-driven styling.
+ * Uses the form-fidelity renderer that walks the FormQAR-054 schema
+ * and renders each field as a labeled form entry.
  */
 async function renderFromSchema(
   output: PSUROutput,
   templateJsonPath: string,
+  ctx?: PsurComputationContext,
 ): Promise<Buffer> {
   const templateJson = loadTemplateJson(templateJsonPath);
-  const mapped = mapOutputToTemplate(output, templateJson);
-  return renderSchemaDocx(mapped, templateJson);
+  const inferred = ctx ? inferFields(ctx) : undefined;
+  const mapped = mapOutputToTemplate(output, templateJson, inferred);
+  return renderFormDocx(mapped, templateJson);
 }
 
 // ── Custom Template Renderer (Fidelity-First) ───────────────────────

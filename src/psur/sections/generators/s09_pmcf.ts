@@ -103,8 +103,7 @@ export function generateS09(ctx: Ctx): SectionResult {
     : "No individual PMCF activities were recorded during this period.";
 
   const narrative =
-    `In accordance with Article 61 and Annex XIV Part B of Regulation (EU) 2017/745, ` +
-    `the post-market clinical follow-up (PMCF) plan for ` +
+    `The post-market clinical follow-up (PMCF) plan for ` +
     `${ctx.deviceMaster.device_name} was reviewed for the surveillance period ` +
     `${ctx.periodStart} to ${ctx.periodEnd}. ` +
     `A total of ${pmcf.totalActivities} PMCF activity/activities were tracked ` +

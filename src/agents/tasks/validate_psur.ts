@@ -106,6 +106,35 @@ export const handleValidatePsur: TaskHandler = async (input, store, config) => {
     });
   }
 
+  // ── Cross-section benefit-risk consistency check ─────────────────
+  // S01 (Intro/Executive Summary) and S12 (Conclusion) should agree on benefit-risk determination
+  const s01 = sections.find((s: SectionResult) => s.sectionId === "S01");
+  const s11 = sections.find((s: SectionResult) => s.sectionId === "S11");
+  const s12 = sections.find((s: SectionResult) => s.sectionId === "S12");
+  if (s11 && s12) {
+    const s11Text = s11.narrative.toLowerCase();
+    const s12Text = s12.narrative.toLowerCase();
+    const s11Changed = s11Text.includes("adversely impacted") || s11Text.includes("profile has changed");
+    const s12Changed = s12Text.includes("adversely impacted") || s12Text.includes("profile has changed");
+    const s11Unchanged = s11Text.includes("not been adversely") || s11Text.includes("remains unchanged") || s11Text.includes("remains favorable");
+    const s12Unchanged = s12Text.includes("not been adversely") || s12Text.includes("remains unchanged") || s12Text.includes("remains favorable");
+    if ((s11Changed && s12Unchanged) || (s11Unchanged && s12Changed)) {
+      psurValidation.push({
+        ruleKey: "psur_benefit_risk_consistency",
+        severity: "critical",
+        status: "fail",
+        message: `Benefit-risk conclusion inconsistency: S11 says "${s11Changed ? "changed" : "unchanged"}" but S12 says "${s12Changed ? "changed" : "unchanged"}".`,
+      });
+    } else {
+      psurValidation.push({
+        ruleKey: "psur_benefit_risk_consistency",
+        severity: "critical",
+        status: "pass",
+        message: "Benefit-risk conclusions are consistent between S11 and S12.",
+      });
+    }
+  }
+
   // ── Strict LLM proof-of-call validation ────────────────────────────
   const chain = config.recorder.getChain();
   const llmDTRs = chain.filter(

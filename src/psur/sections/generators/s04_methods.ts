@@ -90,14 +90,14 @@ export function generateS04(ctx: Ctx): SectionResult {
     `vigilance reports submitted to competent authorities, the corrective and ` +
     `preventive action (CAPA) management system, systematic literature searches ` +
     `of relevant scientific databases, post-market clinical follow-up (PMCF) data, ` +
-    `and the risk management file maintained in accordance with ISO 14971. ` +
+    `and the risk management file. ` +
     `A total of ${atomCount} evidence atoms were ingested and qualified for this ` +
     `assessment, encompassing the following evidence types: ${evidenceTypeList}. ` +
     `From these primary sources, ${derivedCount} derived analytical inputs were ` +
     `computed to support the analyses presented in this report. ` +
     `Statistical methods applied include Statistical Process Control (SPC) with ` +
     `3-sigma Upper Control Limit (UCL) calculation and evaluation against ` +
-    `Western Electric Rules 1\u20134, in accordance with MDCG 2022-21 guidance. ` +
+    `Western Electric Rules 1\u20134. ` +
     `Complaint and incident coding follows the International Medical Device ` +
     `Regulators Forum (IMDRF) coding system for problem codes and harm codes. ` +
     `All evidence atoms underwent data qualification checks including SHA-256 ` +
