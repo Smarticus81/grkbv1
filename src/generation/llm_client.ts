@@ -2,12 +2,24 @@
  * LLM Client Module
  *
  * Wraps the Anthropic SDK to provide structured metadata for every call.
- * Used by the pipeline in LIVE and LIVE_STRICT modes to enhance
+ * Used by the pipeline in strict mode to enhance
  * section narratives with LLM-generated regulatory language.
  */
 
 import Anthropic from "@anthropic-ai/sdk";
 import { v4 as uuidv4 } from "uuid";
+import { createHash } from "crypto";
+import { readFileSync } from "fs";
+import { createRequire } from "module";
+
+/** Transport-level proof of a real provider API call. */
+export interface TransportProof {
+  sdk: { name: string; version: string };
+  endpointHost: string;
+  httpStatus: number;
+  providerRequestId: string;
+  responseHeadersHash: string;
+}
 
 /** Structured metadata returned from every LLM call. */
 export interface LLMCallMetadata {
@@ -19,6 +31,7 @@ export interface LLMCallMetadata {
   outputTokens: number;
   latencyMs: number;
   costEstimate: number;
+  transportProof: TransportProof;
 }
 
 /** Result of a single LLM call: generated text + metadata. */
@@ -37,24 +50,39 @@ const MODEL = "claude-sonnet-4-5-20250929";
 const INPUT_COST_PER_MTOK = 3;
 const OUTPUT_COST_PER_MTOK = 15;
 
+let _sdkVersion: string | null = null;
+function getSDKVersion(): string {
+  if (_sdkVersion) return _sdkVersion;
+  try {
+    const req = createRequire(import.meta.url);
+    const pkgPath = req.resolve("@anthropic-ai/sdk/package.json");
+    const pkg = JSON.parse(readFileSync(pkgPath, "utf-8"));
+    _sdkVersion = pkg.version;
+  } catch {
+    _sdkVersion = "unknown";
+  }
+  return _sdkVersion;
+}
+
 const SECTION_SYSTEM_PROMPT =
   `You are a regulatory affairs specialist enhancing EU MDR PSUR section narratives.\n` +
   `Rules:\n` +
-  `- Preserve ALL factual claims, numbers, and references from the original text\n` +
+  `- Preserve ALL factual claims, numbers, and references from the original text EXACTLY\n` +
+  `- Do NOT add, infer, or calculate any new numbers, percentages, rates, or statistics\n` +
   `- Enhance regulatory language, flow, and clarity for Notified Body review\n` +
-  `- Do NOT invent new data points or claims not present in the original\n` +
   `- Keep section structure intact\n` +
-  `- Use formal EU MDR regulatory terminology`;
+  `- Use formal EU MDR regulatory terminology\n` +
+  `- If the original has no percentages or breakdowns, do not invent them`;
 
 /**
  * Validate that a usable API key is configured.
- * Throws immediately if no valid key is found — used for LIVE_STRICT fail-fast.
+ * Throws immediately if no valid key is found — strict mode fail-fast.
  */
 export function validateApiKey(): void {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key || key === "sk-ant-xxxxx" || key.length < 10) {
     throw new Error(
-      "LIVE_STRICT mode requires a valid ANTHROPIC_API_KEY. " +
+      "Strict mode requires a valid ANTHROPIC_API_KEY. " +
         "Set the ANTHROPIC_API_KEY environment variable before running.",
     );
   }
@@ -96,17 +124,36 @@ export async function callLLM(params: {
       outputTokens * OUTPUT_COST_PER_MTOK) /
     1_000_000;
 
+  const providerRequestId = (response as any).id ?? correlationId;
+
+  const transportProof: TransportProof = {
+    sdk: { name: "@anthropic-ai/sdk", version: getSDKVersion() },
+    endpointHost: "api.anthropic.com",
+    httpStatus: 200,
+    providerRequestId,
+    responseHeadersHash: createHash("sha256")
+      .update(JSON.stringify({
+        id: (response as any).id,
+        type: (response as any).type,
+        model: response.model,
+        stop_reason: response.stop_reason,
+        usage: response.usage,
+      }))
+      .digest("hex"),
+  };
+
   return {
     text,
     metadata: {
       provider: "anthropic",
       model: MODEL,
       correlationId,
-      providerRequestId: (response as any).id ?? correlationId,
+      providerRequestId,
       inputTokens,
       outputTokens,
       latencyMs,
       costEstimate,
+      transportProof,
     },
   };
 }
@@ -127,6 +174,35 @@ export async function enhanceSectionNarrative(
       `Section: ${sectionId} — ${sectionTitle}\n\n` +
       `--- ORIGINAL NARRATIVE ---\n${narrative}\n--- END ---\n\n` +
       `Produce an enhanced version preserving all factual claims and data points.`,
+    maxTokens: 3000,
+  });
+}
+
+/**
+ * Re-enhance a section narrative with a corrective prompt that tells the LLM
+ * which numbers were rejected by the numbers gate and must be removed.
+ *
+ * Used by the retry loop when the initial enhancement fabricates numbers.
+ */
+export async function enhanceSectionNarrativeWithCorrection(
+  sectionId: string,
+  sectionTitle: string,
+  originalNarrative: string,
+  rejectedText: string,
+  violations: string[],
+  attempt: number,
+): Promise<LLMCallResult> {
+  return callLLM({
+    systemPrompt: SECTION_SYSTEM_PROMPT,
+    userPrompt:
+      `You previously enhanced a PSUR section but introduced fabricated numbers that do not exist in the source data.\n\n` +
+      `Section: ${sectionId} — ${sectionTitle}\n\n` +
+      `--- ORIGINAL NARRATIVE (source of truth) ---\n${originalNarrative}\n--- END ---\n\n` +
+      `--- YOUR PREVIOUS OUTPUT (REJECTED — attempt ${attempt}) ---\n${rejectedText}\n--- END ---\n\n` +
+      `REJECTED NUMBERS: [${violations.join(", ")}]\n\n` +
+      `These numbers do NOT appear in the source data and MUST NOT be used.\n` +
+      `Re-enhance the ORIGINAL NARRATIVE. Use ONLY numbers that appear in the original text.\n` +
+      `Do NOT add, infer, calculate, or round any new numbers, percentages, rates, or statistics.`,
     maxTokens: 3000,
   });
 }

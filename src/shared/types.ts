@@ -21,7 +21,9 @@ export type DTRType =
   | "BENEFIT_RISK_NARRATIVE_GENERATION"
   | "CLAIM_EXTRACTION"
   | "VALIDATION_DECISION"
-  | "EXPORT_GENERATION";
+  | "EXPORT_GENERATION"
+  | "AGENT_TASK_EXECUTION"
+  | "LLM_SECTION_ENHANCEMENT";
 
 /** Evidence types */
 export type EvidenceType =

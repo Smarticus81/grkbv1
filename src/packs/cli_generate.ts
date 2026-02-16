@@ -2,18 +2,18 @@
 /**
  * CLI: psur:generate
  *
- * Usage: npm run psur:generate -- --pack <packName> [--mode <offline|live|live_strict>] [--clean]
+ * Usage: npm run psur:generate -- --pack <packName> [--template <templateId>] [--client <clientId>] [--clean]
  *
  * Reads normalized datasets from /packs/<packName>/normalized/,
- * runs the full PSUR generation pipeline, and outputs to /out/cases/<caseId>/.
+ * runs the full PSUR generation pipeline, renders via the template system,
+ * and outputs to /out/cases/<caseId>/.
  */
 
+import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
 import { runPackPipeline } from "./pipeline.js";
-import { parseRunMode } from "../shared/run_config.js";
 import { cleanOutputDir } from "../cli/out_clean.js";
-import type { RunConfig } from "../shared/run_config.js";
 import type { SectionResult } from "../psur/context.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,7 +23,8 @@ async function main() {
   const args = process.argv.slice(2);
   let packName = "";
   let caseId = "";
-  let modeArg = "";
+  let templateId = "";
+  let clientId = "";
   let clean = false;
 
   for (let i = 0; i < args.length; i++) {
@@ -35,8 +36,12 @@ async function main() {
       caseId = args[i + 1];
       i++;
     }
-    if (args[i] === "--mode" && i + 1 < args.length) {
-      modeArg = args[i + 1];
+    if (args[i] === "--template" && i + 1 < args.length) {
+      templateId = args[i + 1];
+      i++;
+    }
+    if (args[i] === "--client" && i + 1 < args.length) {
+      clientId = args[i + 1];
       i++;
     }
     if (args[i] === "--clean") {
@@ -45,13 +50,15 @@ async function main() {
   }
 
   if (!packName) {
-    console.error("Usage: npm run psur:generate -- --pack <packName> [--case-id <id>] [--mode <offline|live|live_strict>] [--clean]");
+    const positional = args.filter((a) => !a.startsWith("--"));
+    if (positional[0]) {
+      packName = positional[0];
+    }
+  }
+  if (!packName) {
+    console.error("Usage: npm run psur:generate -- --pack <packName> [--template <templateId>] [--client <clientId>] [--case-id <id>] [--clean]");
     process.exit(1);
   }
-
-  const runConfig: RunConfig = {
-    mode: parseRunMode(modeArg || undefined, process.env.RUN_MODE),
-  };
 
   const packDir = path.join(ROOT, "packs", packName);
   const outputDir = path.join(ROOT, "out", "cases", caseId || packName);
@@ -79,14 +86,17 @@ async function main() {
 
   try {
     log("PIPELINE", `Pack: ${packName}`);
-    log("PIPELINE", `Run mode: ${runConfig.mode.toUpperCase()}`);
+    log("PIPELINE", `Run mode: STRICT (ONLY)`);
+    if (templateId) log("PIPELINE", `Template: ${templateId}`);
+    if (clientId) log("PIPELINE", `Client: ${clientId}`);
     log("PIPELINE", `Output: ${outputDir}`);
 
     const result = await runPackPipeline({
       packDir,
       caseId: caseId || undefined,
       outputDir,
-      runConfig,
+      templateId: templateId || undefined,
+      clientId: clientId || undefined,
     });
 
     const ctx = result.context;
@@ -122,19 +132,21 @@ async function main() {
       log("AUDIT", `Merkle root: ${chain[chain.length - 1].hashChain.merkleRoot.slice(0, 32)}...`);
     }
 
-    log("OUTPUT", `Files written to: ${result.outputDir}`);
+    // Template info
+    log("TEMPLATE", `Rendered with: ${result.renderResult.templateId} v${result.renderResult.templateVersion}`);
 
-    // LLM usage stats
-    if (result.llmCalls.length > 0) {
-      const totalIn = result.llmCalls.reduce((s, c) => s + c.metadata.inputTokens, 0);
-      const totalOut = result.llmCalls.reduce((s, c) => s + c.metadata.outputTokens, 0);
-      const totalCost = result.llmCalls.reduce((s, c) => s + c.metadata.costEstimate, 0);
-      const totalLatency = result.llmCalls.reduce((s, c) => s + c.metadata.latencyMs, 0);
-      log("LLM", `${result.llmCalls.length} LLM calls (${result.llmCalls[0].metadata.provider}/${result.llmCalls[0].metadata.model})`);
-      log("LLM", `Tokens: ${totalIn} in / ${totalOut} out | Latency: ${(totalLatency / 1000).toFixed(1)}s | Cost: $${totalCost.toFixed(4)}`);
-    } else {
-      log("LLM", `No LLM calls (mode: ${runConfig.mode})`);
-    }
+    log("OUTPUT", `Files written to: ${result.outputDir}`);
+    log("OUTPUT", `  psur/output.docx   — Template-rendered PSUR document`);
+    log("OUTPUT", `  psur/output.json   — Canonical PSUROutput contract`);
+    log("OUTPUT", `  psur/template_used.json — Template provenance`);
+
+    // LLM usage stats (always present in strict mode)
+    const totalIn = result.llmCalls.reduce((s, c) => s + c.metadata.inputTokens, 0);
+    const totalOut = result.llmCalls.reduce((s, c) => s + c.metadata.outputTokens, 0);
+    const totalCost = result.llmCalls.reduce((s, c) => s + c.metadata.costEstimate, 0);
+    const totalLatency = result.llmCalls.reduce((s, c) => s + c.metadata.latencyMs, 0);
+    log("LLM", `${result.llmCalls.length} LLM calls (${result.llmCalls[0]?.metadata.provider ?? "none"}/${result.llmCalls[0]?.metadata.model ?? "none"})`);
+    log("LLM", `Tokens: ${totalIn} in / ${totalOut} out | Latency: ${(totalLatency / 1000).toFixed(1)}s | Cost: $${totalCost.toFixed(4)}`);
 
     const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
     console.log();

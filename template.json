@@ -1,0 +1,1256 @@
+{
+  "meta": {
+    "id": "FormQAR-054_UI_SCHEMA_PACK",
+    "source_file": "FormQAR-054 FINAL.docx",
+    "revision": "C",
+    "renderer_targets": [
+      "rjsf",
+      "formily",
+      "custom-react"
+    ],
+    "preserve_layout_fidelity": true
+  },
+
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["psur_cover_page", "sections"],
+    "definitions": {
+      "date": {
+        "type": "string",
+        "format": "date",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      },
+      "nonEmpty": { "type": "string", "minLength": 1 },
+      "yesNo": { "type": "string", "enum": ["Yes", "No"] },
+      "yesNoNA": { "type": "string", "enum": ["Yes", "No", "N/A"] },
+      "status_prev_actions": {
+        "type": "string",
+        "enum": ["Completed", "In Progress", "Not Started", "Not Applicable"]
+      },
+      "eu_mdr_class": { "type": "string", "enum": ["Class IIa", "Class IIb", "Class III"] },
+      "uk_class": { "type": "string", "enum": ["Class IIa", "Class IIb", "Class III"] },
+      "us_fda_class": { "type": "string", "enum": ["Class I", "Class II", "Class III"] },
+      "psur_cadence": { "type": "string", "enum": ["Annually", "Every two years"] },
+      "region_sales": {
+        "type": "string",
+        "enum": [
+          "EEA+TR+XI",
+          "Australia",
+          "Brazil",
+          "Canada",
+          "China",
+          "Japan",
+          "UK",
+          "United States",
+          "Other (>5% global sales)",
+          "Rest of World",
+          "Worldwide"
+        ]
+      },
+      "region_si": { "type": "string", "enum": ["EEA+TR + XI", "UK", "Worldwide"] },
+      "percent_0_100": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+      "int_null": { "type": ["integer", "null"], "minimum": 0 },
+      "num_null": { "type": ["number", "null"], "minimum": 0 }
+    },
+
+    "properties": {
+      "psur_cover_page": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["manufacturer_information", "regulatory_information", "document_information"],
+        "properties": {
+          "manufacturer_information": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "company_name",
+              "address",
+              "manufacturer_srn",
+              "authorized_representative_name",
+              "authorized_representative_address_lines",
+              "authorized_representative_srn"
+            ],
+            "properties": {
+              "company_name": { "$ref": "#/definitions/nonEmpty" },
+              "address": { "type": "string", "minLength": 1 },
+              "manufacturer_srn": { "type": "string", "minLength": 1 },
+              "authorized_representative_name": { "type": "string" },
+              "authorized_representative_address_lines": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "authorized_representative_srn": { "type": "string" }
+            }
+          },
+          "regulatory_information": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["certificate_number", "date_of_issue", "notified_body_name", "notified_body_number", "psur_available_within_3_working_days"],
+            "properties": {
+              "certificate_number": { "type": "string" },
+              "date_of_issue": { "type": "string" },
+              "notified_body_name": { "type": "string" },
+              "notified_body_number": { "type": "string" },
+              "psur_available_within_3_working_days": { "$ref": "#/definitions/yesNo" }
+            }
+          },
+          "document_information": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["data_collection_period_start", "data_collection_period_end", "psur_cadence"],
+            "properties": {
+              "data_collection_period_start": { "type": "string" },
+              "data_collection_period_end": { "type": "string" },
+              "psur_cadence": { "$ref": "#/definitions/psur_cadence" }
+            }
+          }
+        }
+      },
+
+      "sections": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "A_executive_summary",
+          "B_scope_and_device_description",
+          "C_volume_of_sales_and_population_exposure",
+          "D_information_on_serious_incidents",
+          "E_customer_feedback",
+          "F_product_complaint_types_counts_and_rates",
+          "G_information_from_trend_reporting",
+          "H_information_from_fsca",
+          "I_corrective_and_preventive_actions",
+          "J_scientific_literature_review",
+          "K_review_of_external_databases_and_registries",
+          "L_pmcf",
+          "M_findings_and_conclusions"
+        ],
+
+        "properties": {
+          "A_executive_summary": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "previous_psur_actions_status",
+              "notified_body_review_status",
+              "data_collection_period_changes",
+              "benefit_risk_assessment_conclusion"
+            ],
+            "properties": {
+              "previous_psur_actions_status": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "actions_and_status_from_previous_report",
+                  "status_of_previous_actions",
+                  "details_if_in_progress_or_not_started"
+                ],
+                "properties": {
+                  "actions_and_status_from_previous_report": { "type": "string" },
+                  "status_of_previous_actions": { "$ref": "#/definitions/status_prev_actions" },
+                  "details_if_in_progress_or_not_started": { "type": "string" }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": { "status_of_previous_actions": { "enum": ["In Progress", "Not Started"] } }
+                    },
+                    "then": {
+                      "properties": { "details_if_in_progress_or_not_started": { "minLength": 1 } }
+                    }
+                  }
+                ]
+              },
+
+              "notified_body_review_status": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["previous_psur_reviewed_by_notified_body", "notified_body_actions_taken", "status_of_nb_actions"],
+                "properties": {
+                  "previous_psur_reviewed_by_notified_body": { "$ref": "#/definitions/yesNoNA" },
+                  "notified_body_actions_taken": { "type": "string" },
+                  "status_of_nb_actions": { "type": "string" }
+                }
+              },
+
+              "data_collection_period_changes": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["data_collection_period_changed", "justification_for_change", "impact_on_comparability"],
+                "properties": {
+                  "data_collection_period_changed": { "$ref": "#/definitions/yesNo" },
+                  "justification_for_change": { "type": "string" },
+                  "impact_on_comparability": { "type": "string" }
+                },
+                "allOf": [
+                  {
+                    "if": { "properties": { "data_collection_period_changed": { "const": "Yes" } } },
+                    "then": {
+                      "required": ["justification_for_change", "impact_on_comparability"],
+                      "properties": {
+                        "justification_for_change": { "minLength": 1 },
+                        "impact_on_comparability": { "minLength": 1 }
+                      }
+                    }
+                  }
+                ]
+              },
+
+              "benefit_risk_assessment_conclusion": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["conclusion_selection", "high_level_summary_if_impacted"],
+                "properties": {
+                  "conclusion_selection": {
+                    "type": "string",
+                    "enum": [
+                      "has NOT been adversely impacted and remains UNCHANGED",
+                      "has been adversely impacted"
+                    ]
+                  },
+                  "high_level_summary_if_impacted": { "type": "string" }
+                },
+                "allOf": [
+                  {
+                    "if": { "properties": { "conclusion_selection": { "const": "has been adversely impacted" } } },
+                    "then": { "properties": { "high_level_summary_if_impacted": { "minLength": 1 } } }
+                  }
+                ]
+              }
+            }
+          },
+
+          "B_scope_and_device_description": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "device_information",
+              "device_classification",
+              "device_timeline_and_status",
+              "device_description_and_information",
+              "device_information_breakdown",
+              "data_collection_period_reporting_period_information",
+              "technical_information",
+              "model_catalog_numbers",
+              "device_grouping_information"
+            ],
+            "properties": {
+              "device_information": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["product_name", "implantable_device"],
+                "properties": {
+                  "product_name": { "type": "string" },
+                  "implantable_device": { "$ref": "#/definitions/yesNo" }
+                }
+              },
+
+              "device_classification": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "eu_mdr_classification",
+                  "eu_technical_documentation_number",
+                  "classification_rule_mdr_annex_viii",
+                  "uk_classification_applicable",
+                  "uk_classification_value",
+                  "uk_conformity_assessment_details",
+                  "uk_classification_rule",
+                  "us_fda_classification",
+                  "us_pre_market_submission_number"
+                ],
+                "properties": {
+                  "eu_mdr_classification": { "$ref": "#/definitions/eu_mdr_class" },
+                  "eu_technical_documentation_number": { "type": "string" },
+                  "classification_rule_mdr_annex_viii": { "type": "string" },
+
+                  "uk_classification_applicable": { "$ref": "#/definitions/yesNo" },
+                  "uk_classification_value": { "$ref": "#/definitions/uk_class" },
+                  "uk_conformity_assessment_details": { "type": "string" },
+                  "uk_classification_rule": { "type": "string" },
+
+                  "us_fda_classification": { "$ref": "#/definitions/us_fda_class" },
+                  "us_pre_market_submission_number": { "type": "string" }
+                },
+                "allOf": [
+                  {
+                    "if": { "properties": { "uk_classification_applicable": { "const": "No" } } },
+                    "then": {
+                      "properties": {
+                        "uk_classification_value": { "default": "Class IIa" },
+                        "uk_conformity_assessment_details": { "default": "" },
+                        "uk_classification_rule": { "default": "" }
+                      }
+                    }
+                  }
+                ]
+              },
+
+              "device_timeline_and_status": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["certification_milestones", "psur_obligation_status_assessment"],
+                "properties": {
+                  "certification_milestones": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["eu", "uk"],
+                    "properties": {
+                      "eu": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["first_declaration_of_conformity", "first_ec_eu_certificate", "first_ce_marking"],
+                        "properties": {
+                          "first_declaration_of_conformity": { "type": "string" },
+                          "first_ec_eu_certificate": { "type": "string" },
+                          "first_ce_marking": { "type": "string" }
+                        }
+                      },
+                      "uk": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "applicable",
+                          "first_date_of_certification_or_declaration_for_gb_market",
+                          "first_ce_marking",
+                          "first_market_placement",
+                          "first_service_deployment"
+                        ],
+                        "properties": {
+                          "applicable": { "$ref": "#/definitions/yesNo" },
+                          "first_date_of_certification_or_declaration_for_gb_market": { "type": "string" },
+                          "first_ce_marking": { "type": "string" },
+                          "first_market_placement": { "type": "string" },
+                          "first_service_deployment": { "type": "string" }
+                        }
+                      }
+                    }
+                  },
+
+                  "psur_obligation_status_assessment": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "market_status",
+                      "last_device_sold_date",
+                      "certificate_status",
+                      "projected_end_of_pms_period",
+                      "confirmation_of_ongoing_psur_obligation"
+                    ],
+                    "properties": {
+                      "market_status": { "type": "string" },
+                      "last_device_sold_date": { "type": "string" },
+                      "certificate_status": { "type": "string" },
+                      "projected_end_of_pms_period": { "type": "string" },
+                      "confirmation_of_ongoing_psur_obligation": { "type": "string" }
+                    }
+                  }
+                }
+              },
+
+              "device_description_and_information": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["device_description", "intended_purpose_use", "indications", "contraindications", "target_populations"],
+                "properties": {
+                  "device_description": { "type": "string" },
+                  "intended_purpose_use": { "type": "string" },
+                  "indications": { "type": "string" },
+                  "contraindications": { "type": "string" },
+                  "target_populations": { "type": "string" }
+                }
+              },
+
+              "device_information_breakdown": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["mdr_devices_table", "legacy_devices_table"],
+                "properties": {
+                  "mdr_devices_table": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["basic_udi_di", "device_trade_name", "emdn_code", "changes_from_previous_psur"],
+                      "properties": {
+                        "basic_udi_di": { "type": "string" },
+                        "device_trade_name": { "type": "string" },
+                        "emdn_code": { "type": "string" },
+                        "changes_from_previous_psur": { "type": "string" }
+                      }
+                    }
+                  },
+                  "legacy_devices_table": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["device_group", "trade_names", "gmdn_code", "market_availability"],
+                      "properties": {
+                        "device_group": { "type": "string" },
+                        "trade_names": { "type": "string" },
+                        "gmdn_code": { "type": "string" },
+                        "market_availability": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+
+              "data_collection_period_reporting_period_information": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["date_range_start", "date_range_end", "pms_period_determination", "device_lifetime", "projected_end_of_pms_period_title"],
+                "properties": {
+                  "date_range_start": { "type": "string" },
+                  "date_range_end": { "type": "string" },
+                  "pms_period_determination": { "type": "string" },
+                  "device_lifetime": { "type": "string" },
+                  "projected_end_of_pms_period_title": { "type": "string" }
+                }
+              },
+
+              "technical_information": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["risk_management_file_number", "associated_documents_table"],
+                "properties": {
+                  "risk_management_file_number": { "type": "string" },
+                  "associated_documents_table": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["document_type", "document_number", "document_title"],
+                      "properties": {
+                        "document_type": { "type": "string" },
+                        "document_number": { "type": "string" },
+                        "document_title": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+
+              "model_catalog_numbers": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["complete_listing_reference"],
+                "properties": { "complete_listing_reference": { "type": "string" } }
+              },
+
+              "device_grouping_information": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "multiple_devices_included",
+                  "justification_for_grouping",
+                  "leading_device",
+                  "leading_device_rationale",
+                  "same_clinical_evaluation_report",
+                  "same_notified_body_for_all_devices",
+                  "grouping_changes_from_previous_psur"
+                ],
+                "properties": {
+                  "multiple_devices_included": { "$ref": "#/definitions/yesNo" },
+                  "justification_for_grouping": { "type": "string" },
+                  "leading_device": { "type": "string" },
+                  "leading_device_rationale": { "type": "string" },
+                  "same_clinical_evaluation_report": { "$ref": "#/definitions/yesNo" },
+                  "same_notified_body_for_all_devices": { "$ref": "#/definitions/yesNo" },
+                  "grouping_changes_from_previous_psur": { "$ref": "#/definitions/yesNo" }
+                },
+                "allOf": [
+                  {
+                    "if": { "properties": { "multiple_devices_included": { "const": "No" } } },
+                    "then": {
+                      "properties": {
+                        "justification_for_grouping": { "default": "" },
+                        "leading_device": { "default": "" },
+                        "leading_device_rationale": { "default": "" }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+
+          "C_volume_of_sales_and_population_exposure": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["sales_methodology", "table_1_annual_sales", "table_1_every_two_years_sales", "sales_data_analysis", "population_exposure"],
+            "properties": {
+              "sales_methodology": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["criteria_used_for_sales_data", "market_history"],
+                "properties": {
+                  "criteria_used_for_sales_data": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "devices_placed_on_market_or_put_into_service",
+                      "units_distributed_from_doc_or_ec_eu_mark_approval_to_end_date",
+                      "units_distributed_within_each_time_period",
+                      "episodes_of_use_for_reusable_devices",
+                      "active_installed_base",
+                      "units_implanted",
+                      "other_specify_with_rationale"
+                    ],
+                    "properties": {
+                      "devices_placed_on_market_or_put_into_service": { "type": "boolean" },
+                      "units_distributed_from_doc_or_ec_eu_mark_approval_to_end_date": { "type": "boolean" },
+                      "units_distributed_within_each_time_period": { "type": "boolean" },
+                      "episodes_of_use_for_reusable_devices": { "type": "boolean" },
+                      "active_installed_base": { "type": "boolean" },
+                      "units_implanted": { "type": "boolean" },
+                      "other_specify_with_rationale": { "type": "string" }
+                    }
+                  },
+                  "market_history": { "type": "string" }
+                }
+              },
+
+              "table_1_annual_sales": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["region", "preceding_period_1", "preceding_period_2", "preceding_period_3", "current_period_units", "current_period_percent_global_sales"],
+                  "properties": {
+                    "region": { "$ref": "#/definitions/region_sales" },
+                    "preceding_period_1": { "$ref": "#/definitions/int_null" },
+                    "preceding_period_2": { "$ref": "#/definitions/int_null" },
+                    "preceding_period_3": { "$ref": "#/definitions/int_null" },
+                    "current_period_units": { "$ref": "#/definitions/int_null" },
+                    "current_period_percent_global_sales": { "$ref": "#/definitions/percent_0_100" }
+                  }
+                }
+              },
+
+              "table_1_every_two_years_sales": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["region", "preceding_period_1", "preceding_period_2", "current_period_1", "current_period_2", "total_24_month", "percent_global_sales_24_month"],
+                  "properties": {
+                    "region": { "$ref": "#/definitions/region_sales" },
+                    "preceding_period_1": { "$ref": "#/definitions/int_null" },
+                    "preceding_period_2": { "$ref": "#/definitions/int_null" },
+                    "current_period_1": { "$ref": "#/definitions/int_null" },
+                    "current_period_2": { "$ref": "#/definitions/int_null" },
+                    "total_24_month": { "$ref": "#/definitions/int_null" },
+                    "percent_global_sales_24_month": { "$ref": "#/definitions/percent_0_100" }
+                  }
+                }
+              },
+
+              "sales_data_analysis": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["sales_trend_chart_attachment_ref", "narrative_analysis"],
+                "properties": {
+                  "sales_trend_chart_attachment_ref": { "type": "string" },
+                  "narrative_analysis": { "type": "string" }
+                }
+              },
+
+              "population_exposure": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["usage_frequency", "estimated_size_of_patient_population_exposed", "characteristics_of_patient_population_exposed"],
+                "properties": {
+                  "usage_frequency": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["single_use_per_patient", "multiple_uses_per_patient", "average_uses_per_patient"],
+                    "properties": {
+                      "single_use_per_patient": { "$ref": "#/definitions/yesNo" },
+                      "multiple_uses_per_patient": { "$ref": "#/definitions/yesNo" },
+                      "average_uses_per_patient": { "$ref": "#/definitions/num_null" }
+                    }
+                  },
+                  "estimated_size_of_patient_population_exposed": { "type": "string" },
+                  "characteristics_of_patient_population_exposed": { "type": "string" }
+                }
+              }
+            }
+          },
+
+          "D_information_on_serious_incidents": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["table_2", "table_3", "table_4", "new_incident_types_identified_this_cycle"],
+            "properties": {
+              "table_2": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["region", "imdrf_problem_code_term", "n_current_period", "rate_percent", "complaint_number"],
+                  "properties": {
+                    "region": { "$ref": "#/definitions/region_si" },
+                    "imdrf_problem_code_term": { "type": "string" },
+                    "n_current_period": { "$ref": "#/definitions/int_null" },
+                    "rate_percent": { "$ref": "#/definitions/percent_0_100" },
+                    "complaint_number": { "type": "string" }
+                  }
+                }
+              },
+              "table_3": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["region", "imdrf_cause_code_term", "n_current_period", "rate_percent", "complaint_number"],
+                  "properties": {
+                    "region": { "$ref": "#/definitions/region_si" },
+                    "imdrf_cause_code_term": { "type": "string" },
+                    "n_current_period": { "$ref": "#/definitions/int_null" },
+                    "rate_percent": { "$ref": "#/definitions/percent_0_100" },
+                    "complaint_number": { "type": "string" }
+                  }
+                }
+              },
+              "table_4": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "region",
+                    "imdrf_health_impact_annex_f_code_term",
+                    "number_of_serious_incidents",
+                    "investigation_conclusion_1_percent",
+                    "investigation_conclusion_2_percent",
+                    "investigation_conclusion_3_percent",
+                    "investigation_conclusion_4_percent"
+                  ],
+                  "properties": {
+                    "region": { "$ref": "#/definitions/region_si" },
+                    "imdrf_health_impact_annex_f_code_term": { "type": "string" },
+                    "number_of_serious_incidents": { "$ref": "#/definitions/int_null" },
+
+                    "investigation_conclusion_1_percent": { "type": "string" },
+                    "investigation_conclusion_2_percent": { "type": "string" },
+                    "investigation_conclusion_3_percent": { "type": "string" },
+                    "investigation_conclusion_4_percent": { "type": "string" }
+                  }
+                }
+              },
+              "new_incident_types_identified_this_cycle": { "type": "string" }
+            }
+          },
+
+          "E_customer_feedback": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary", "table_6_feedback_by_type_and_source"],
+            "properties": {
+              "summary": { "type": "string" },
+              "table_6_feedback_by_type_and_source": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["feedback_type", "source", "count", "summary"],
+                  "properties": {
+                    "feedback_type": { "type": "string" },
+                    "source": { "type": "string" },
+                    "count": { "$ref": "#/definitions/int_null" },
+                    "summary": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+
+          "F_product_complaint_types_counts_and_rates": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["complaint_rate_calculation_text", "table_7_annually_harm_problem", "table_7_every_two_years_harm_problem", "commentary_context_for_exceedances", "risk_documentation_update_required"],
+            "properties": {
+              "complaint_rate_calculation_text": { "type": "string" },
+              "commentary_context_for_exceedances": { "type": "string" },
+              "risk_documentation_update_required": { "$ref": "#/definitions/yesNo" },
+
+              "table_7_annually_harm_problem": {
+                "type": "array",
+                "description": "Hierarchical rows: Harm rows followed by Medical Device Problem rows (indented).",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["row_type", "label", "current_period_value", "max_expected_rate_from_ract"],
+                  "properties": {
+                    "row_type": { "type": "string", "enum": ["HARM", "MEDICAL_DEVICE_PROBLEM"] },
+                    "label": { "type": "string" },
+                    "current_period_value": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["complaint_rate", "complaint_count"],
+                      "properties": {
+                        "complaint_rate": { "$ref": "#/definitions/num_null" },
+                        "complaint_count": { "$ref": "#/definitions/int_null" }
+                      }
+                    },
+                    "max_expected_rate_from_ract": { "$ref": "#/definitions/num_null" }
+                  }
+                }
+              },
+
+              "table_7_every_two_years_harm_problem": {
+                "type": "array",
+                "description": "Hierarchical rows: Harm rows followed by Medical Device Problem rows (indented).",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["row_type", "label", "current_24_month_value", "max_expected_rate_from_ract"],
+                  "properties": {
+                    "row_type": { "type": "string", "enum": ["HARM", "MEDICAL_DEVICE_PROBLEM"] },
+                    "label": { "type": "string" },
+                    "current_24_month_value": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["complaint_rate", "complaint_count"],
+                      "properties": {
+                        "complaint_rate": { "$ref": "#/definitions/num_null" },
+                        "complaint_count": { "$ref": "#/definitions/int_null" }
+                      }
+                    },
+                    "max_expected_rate_from_ract": { "$ref": "#/definitions/num_null" }
+                  }
+                }
+              }
+            }
+          },
+
+          "G_information_from_trend_reporting": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["monthly_complaint_rate_graph_ref", "upper_control_limit_definition", "breaches_context_actions", "trend_reporting_summary"],
+            "properties": {
+              "monthly_complaint_rate_graph_ref": { "type": "string" },
+              "upper_control_limit_definition": { "type": "string" },
+              "breaches_context_actions": { "type": "string" },
+              "trend_reporting_summary": { "type": "string" }
+            }
+          },
+
+          "H_information_from_fsca": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary_or_na_statement", "table_8_fsca"],
+            "properties": {
+              "summary_or_na_statement": { "type": "string" },
+              "table_8_fsca": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "type_of_action",
+                    "manufacturer_reference_number",
+                    "issuing_date_or_date_of_final_fsn",
+                    "scope_of_fsca_device_models_within_scope",
+                    "status_of_fsca",
+                    "rationale_and_description_of_action_taken",
+                    "impacted_regions",
+                    "date_reported_to_mhra_if_applicable"
+                  ],
+                  "properties": {
+                    "type_of_action": { "type": "string" },
+                    "manufacturer_reference_number": { "type": "string" },
+                    "issuing_date_or_date_of_final_fsn": { "type": "string" },
+                    "scope_of_fsca_device_models_within_scope": { "type": "string" },
+                    "status_of_fsca": { "type": "string" },
+                    "rationale_and_description_of_action_taken": { "type": "string" },
+                    "impacted_regions": { "type": "string" },
+                    "date_reported_to_mhra_if_applicable": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+
+          "I_corrective_and_preventive_actions": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary_or_na_statement", "table_9_capa"],
+            "properties": {
+              "summary_or_na_statement": { "type": "string" },
+              "table_9_capa": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "capa_number_or_manufacturer_reference_number",
+                    "initiation_date",
+                    "scope_of_the_capa",
+                    "status_of_the_capa",
+                    "capa_description",
+                    "root_cause",
+                    "effectiveness_of_the_capa",
+                    "target_date_for_completion_if_ongoing"
+                  ],
+                  "properties": {
+                    "capa_number_or_manufacturer_reference_number": { "type": "string" },
+                    "initiation_date": { "type": "string" },
+                    "scope_of_the_capa": { "type": "string" },
+                    "status_of_the_capa": { "type": "string" },
+                    "capa_description": { "type": "string" },
+                    "root_cause": { "type": "string" },
+                    "effectiveness_of_the_capa": { "type": "string" },
+                    "target_date_for_completion_if_ongoing": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+
+          "J_scientific_literature_review": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "literature_search_methodology",
+              "number_of_relevant_articles_identified",
+              "summary_of_new_data",
+              "newly_observed_uses",
+              "previously_unassessed_risks",
+              "state_of_the_art_changes",
+              "comparison_with_similar_devices",
+              "technical_documentation_search_results_reference"
+            ],
+            "properties": {
+              "literature_search_methodology": { "type": "string" },
+              "number_of_relevant_articles_identified": { "$ref": "#/definitions/int_null" },
+              "summary_of_new_data": { "type": "string" },
+              "newly_observed_uses": { "type": "string" },
+              "previously_unassessed_risks": { "type": "string" },
+              "state_of_the_art_changes": { "type": "string" },
+              "comparison_with_similar_devices": { "type": "string" },
+              "technical_documentation_search_results_reference": { "type": "string" }
+            }
+          },
+
+          "K_review_of_external_databases_and_registries": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["registries_reviewed_summary", "table_10_adverse_events_and_recalls"],
+            "properties": {
+              "registries_reviewed_summary": { "type": "string" },
+              "table_10_adverse_events_and_recalls": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "database_registry",
+                    "total_matches",
+                    "relevant_findings",
+                    "benchmark_vs_similar_devices",
+                    "regulatory_actions_affecting_similar_devices",
+                    "rmf_update_reference"
+                  ],
+                  "properties": {
+                    "database_registry": { "type": "string" },
+                    "total_matches": { "$ref": "#/definitions/int_null" },
+                    "relevant_findings": { "type": "string" },
+                    "benchmark_vs_similar_devices": { "type": "string" },
+                    "regulatory_actions_affecting_similar_devices": { "type": "string" },
+                    "rmf_update_reference": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+
+          "L_pmcf": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary_or_na_statement", "table_11_pmcf_activities"],
+            "properties": {
+              "summary_or_na_statement": { "type": "string" },
+              "table_11_pmcf_activities": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["specific_pmcf_activities", "key_findings", "impact_on_safety_performance", "rmf_cer_update", "pmcf_evaluation_report_reference"],
+                  "properties": {
+                    "specific_pmcf_activities": { "type": "string" },
+                    "key_findings": { "type": "string" },
+                    "impact_on_safety_performance": { "type": "string" },
+                    "rmf_cer_update": { "type": "string" },
+                    "pmcf_evaluation_report_reference": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+
+          "M_findings_and_conclusions": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "benefit_risk_profile_conclusion",
+              "intended_benefits_achieved",
+              "limitations_to_data_and_conclusion",
+              "new_or_emerging_risks_or_new_benefits",
+              "actions_taken_or_planned",
+              "overall_performance_conclusion"
+            ],
+            "properties": {
+              "benefit_risk_profile_conclusion": { "type": "string" },
+              "intended_benefits_achieved": { "type": "string" },
+              "limitations_to_data_and_conclusion": { "type": "string" },
+              "new_or_emerging_risks_or_new_benefits": { "type": "string" },
+              "actions_taken_or_planned": { "type": "string" },
+              "overall_performance_conclusion": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "uiSchema": {
+    "ui:global": {
+      "validateOn": "blur",
+      "showErrors": "inline",
+      "lockSectionOrder": true
+    },
+
+    "psur_cover_page": {
+      "ui:field": "Page",
+      "ui:options": { "pageTitle": "PSUR COVER PAGE", "wordLike": true },
+      "manufacturer_information": {
+        "ui:field": "Block",
+        "ui:title": "Manufacturer Information",
+        "company_name": { "ui:widget": "text" },
+        "address": { "ui:widget": "textarea", "ui:options": { "rows": 3 } },
+        "manufacturer_srn": { "ui:widget": "text" },
+        "authorized_representative_name": { "ui:widget": "text", "ui:title": "Authorized Representative (if applicable)" },
+        "authorized_representative_address_lines": {
+          "ui:widget": "textarea",
+          "ui:options": { "rows": 3 },
+          "ui:help": "Enter as lines (street, city/zip, country)."
+        },
+        "authorized_representative_srn": { "ui:widget": "text" }
+      },
+      "regulatory_information": {
+        "ui:field": "Block",
+        "ui:title": "Regulatory Information",
+        "certificate_number": { "ui:widget": "text" },
+        "date_of_issue": { "ui:widget": "text", "ui:placeholder": "e.g., 2026-02-08" },
+        "notified_body_name": { "ui:widget": "text" },
+        "notified_body_number": { "ui:widget": "text" },
+        "psur_available_within_3_working_days": {
+          "ui:widget": "radio",
+          "ui:options": { "inline": true }
+        }
+      },
+      "document_information": {
+        "ui:field": "Block",
+        "ui:title": "Document Information",
+        "data_collection_period_start": { "ui:widget": "text", "ui:title": "Data Collection Period/Reporting Period: Start" },
+        "data_collection_period_end": { "ui:widget": "text", "ui:title": "Data Collection Period/Reporting Period: End" },
+        "psur_cadence": { "ui:widget": "select", "ui:title": "PSUR Cadence" }
+      }
+    },
+
+    "sections": {
+      "ui:field": "SectionTabs",
+      "ui:order": [
+        "A_executive_summary",
+        "B_scope_and_device_description",
+        "C_volume_of_sales_and_population_exposure",
+        "D_information_on_serious_incidents",
+        "E_customer_feedback",
+        "F_product_complaint_types_counts_and_rates",
+        "G_information_from_trend_reporting",
+        "H_information_from_fsca",
+        "I_corrective_and_preventive_actions",
+        "J_scientific_literature_review",
+        "K_review_of_external_databases_and_registries",
+        "L_pmcf",
+        "M_findings_and_conclusions"
+      ],
+
+      "A_executive_summary": {
+        "ui:title": "Section A: Executive Summary",
+        "previous_psur_actions_status": {
+          "actions_and_status_from_previous_report": { "ui:widget": "textarea", "ui:options": { "rows": 3 } },
+          "status_of_previous_actions": { "ui:widget": "radio", "ui:options": { "inline": false } },
+          "details_if_in_progress_or_not_started": { "ui:widget": "textarea", "ui:options": { "rows": 2 } }
+        },
+        "notified_body_review_status": {
+          "previous_psur_reviewed_by_notified_body": { "ui:widget": "radio", "ui:options": { "inline": true } },
+          "notified_body_actions_taken": { "ui:widget": "textarea", "ui:options": { "rows": 2 } },
+          "status_of_nb_actions": { "ui:widget": "textarea", "ui:options": { "rows": 2 } }
+        },
+        "data_collection_period_changes": {
+          "data_collection_period_changed": { "ui:widget": "radio", "ui:options": { "inline": true } },
+          "justification_for_change": { "ui:widget": "textarea", "ui:options": { "rows": 2 } },
+          "impact_on_comparability": { "ui:widget": "textarea", "ui:options": { "rows": 2 } }
+        },
+        "benefit_risk_assessment_conclusion": {
+          "conclusion_selection": { "ui:widget": "radio", "ui:options": { "inline": false } },
+          "high_level_summary_if_impacted": { "ui:widget": "textarea", "ui:options": { "rows": 3 } }
+        }
+      },
+
+      "B_scope_and_device_description": {
+        "ui:title": "Section B: Scope And Device Description",
+        "device_description_and_information": {
+          "device_description": { "ui:widget": "textarea", "ui:options": { "rows": 3 } },
+          "intended_purpose_use": { "ui:widget": "textarea", "ui:options": { "rows": 2 } },
+          "indications": { "ui:widget": "textarea", "ui:options": { "rows": 2 } },
+          "contraindications": { "ui:widget": "textarea", "ui:options": { "rows": 2 } },
+          "target_populations": { "ui:widget": "textarea", "ui:options": { "rows": 2 } }
+        },
+        "device_information_breakdown": {
+          "mdr_devices_table": {
+            "ui:field": "Table",
+            "ui:options": { "label": "For MDR Devices: Basic UDI-DI(s)", "gridLines": true }
+          },
+          "legacy_devices_table": {
+            "ui:field": "Table",
+            "ui:options": { "label": "For Legacy Devices (Remove if not applicable): Device Group/Family", "gridLines": true }
+          }
+        },
+        "technical_information": {
+          "associated_documents_table": {
+            "ui:field": "Table",
+            "ui:options": { "label": "Associated Documents", "gridLines": true }
+          }
+        }
+      },
+
+      "C_volume_of_sales_and_population_exposure": {
+        "ui:title": "Section C: Volume Of Sales and Population Exposure",
+        "sales_methodology": {
+          "criteria_used_for_sales_data": { "ui:field": "CheckboxList", "ui:options": { "columns": 1 } },
+          "market_history": { "ui:widget": "textarea", "ui:options": { "rows": 2 } }
+        },
+        "table_1_annual_sales": {
+          "ui:field": "Table",
+          "ui:options": { "label": "Table 1. Annual Number of Devices Sold by Region (Annually)", "gridLines": true, "headerRepeat": true }
+        },
+        "table_1_every_two_years_sales": {
+          "ui:field": "Table",
+          "ui:options": { "label": "Table 1. Annual Number of Devices Sold by Region (Every Two Years)", "gridLines": true, "headerRepeat": true }
+        },
+        "sales_data_analysis": {
+          "sales_trend_chart_attachment_ref": { "ui:widget": "file", "ui:title": "[INSERT CHART: Sales Trend Over Time]" },
+          "narrative_analysis": { "ui:widget": "textarea", "ui:options": { "rows": 4 } }
+        },
+        "population_exposure": {
+          "estimated_size_of_patient_population_exposed": { "ui:widget": "textarea", "ui:options": { "rows": 3 } },
+          "characteristics_of_patient_population_exposed": { "ui:widget": "textarea", "ui:options": { "rows": 3 } }
+        }
+      },
+
+      "D_information_on_serious_incidents": {
+        "ui:title": "Section D: Information on Serious Incidents",
+        "table_2": { "ui:field": "Table", "ui:options": { "label": "Table 2", "gridLines": true } },
+        "table_3": { "ui:field": "Table", "ui:options": { "label": "Table 3", "gridLines": true } },
+        "table_4": { "ui:field": "Table", "ui:options": { "label": "Table 4", "gridLines": true } },
+        "new_incident_types_identified_this_cycle": { "ui:widget": "textarea", "ui:options": { "rows": 2 } }
+      },
+
+      "F_product_complaint_types_counts_and_rates": {
+        "ui:title": "Section F: Product Complaint Types, Complaint Counts, and Complaint Rates",
+        "complaint_rate_calculation_text": { "ui:widget": "textarea", "ui:options": { "rows": 3 } },
+        "table_7_annually_harm_problem": {
+          "ui:field": "HierarchicalTable",
+          "ui:options": {
+            "label": "Table 7 (Annually)",
+            "gridLines": true,
+            "rowIndentFieldWhen": { "row_type": "MEDICAL_DEVICE_PROBLEM" },
+            "cellTemplate": {
+              "current_period_value": "stacked_rate_count"
+            }
+          }
+        },
+        "table_7_every_two_years_harm_problem": {
+          "ui:field": "HierarchicalTable",
+          "ui:options": {
+            "label": "Table 7 (Every Two Years)",
+            "gridLines": true,
+            "rowIndentFieldWhen": { "row_type": "MEDICAL_DEVICE_PROBLEM" },
+            "cellTemplate": {
+              "current_24_month_value": "stacked_rate_count"
+            }
+          }
+        },
+        "commentary_context_for_exceedances": { "ui:widget": "textarea", "ui:options": { "rows": 4 } },
+        "risk_documentation_update_required": { "ui:widget": "radio", "ui:options": { "inline": true } }
+      },
+
+      "H_information_from_fsca": {
+        "ui:title": "Section H: Information from Field Safety Corrective Actions (FSCA)",
+        "summary_or_na_statement": { "ui:widget": "textarea", "ui:options": { "rows": 2 } },
+        "table_8_fsca": { "ui:field": "Table", "ui:options": { "label": "Table 8", "gridLines": true } }
+      },
+
+      "I_corrective_and_preventive_actions": {
+        "ui:title": "Section I: Corrective and Preventive Actions",
+        "summary_or_na_statement": { "ui:widget": "textarea", "ui:options": { "rows": 2 } },
+        "table_9_capa": { "ui:field": "Table", "ui:options": { "label": "Table 9", "gridLines": true } }
+      }
+    }
+  },
+
+  "layout": {
+    "pageModel": "word_form",
+    "section_order_locked": true,
+    "typography_lock": { "fontFamily": "Arial", "fontSizePt": 10, "lineHeight": 1.15 },
+    "tables": {
+      "B.mdr_devices_table": {
+        "columns": [
+          { "key": "basic_udi_di", "header": "Basic UDI-DI" },
+          { "key": "device_trade_name", "header": "Device Trade Name" },
+          { "key": "emdn_code", "header": "EMDN Code" },
+          { "key": "changes_from_previous_psur", "header": "Changes from Previous PSUR" }
+        ]
+      },
+      "B.legacy_devices_table": {
+        "columns": [
+          { "key": "device_group", "header": "Device Group" },
+          { "key": "trade_names", "header": "Trade Names" },
+          { "key": "gmdn_code", "header": "GMDN Code" },
+          { "key": "market_availability", "header": "Market Availability" }
+        ]
+      },
+      "B.associated_documents_table": {
+        "columns": [
+          { "key": "document_type", "header": "Document Type" },
+          { "key": "document_number", "header": "Document Number" },
+          { "key": "document_title", "header": "Document Title" }
+        ],
+        "prefill_rows": ["PMS Plan", "Clinical Evaluation Report"]
+      },
+
+      "C.table_1_annual_sales": {
+        "header_rows": 3,
+        "merged_cells": [
+          { "row": 0, "col_start": 1, "col_end": 3, "label": "Preceding 12-Month Periods" },
+          { "row": 0, "col_start": 4, "col_end": 5, "label": "Current Data Collection Period" }
+        ],
+        "columns": [
+          { "key": "region", "header": "Region" },
+          { "key": "preceding_period_1", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "preceding_period_2", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "preceding_period_3", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "current_period_units", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "current_period_percent_global_sales", "header": "12-Month Percent of Global Sales" }
+        ]
+      },
+
+      "C.table_1_every_two_years_sales": {
+        "header_rows": 3,
+        "merged_cells": [
+          { "row": 0, "col_start": 1, "col_end": 2, "label": "Preceding Periods" },
+          { "row": 0, "col_start": 3, "col_end": 6, "label": "Current Data Collection Period" }
+        ],
+        "columns": [
+          { "key": "region", "header": "Region" },
+          { "key": "preceding_period_1", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "preceding_period_2", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "current_period_1", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "current_period_2", "header": "[Date Range (mmm-yyyy to mmm-yyyy)]" },
+          { "key": "total_24_month", "header": "24-Month Total" },
+          { "key": "percent_global_sales_24_month", "header": "24-Month Percent of Global Sales" }
+        ]
+      },
+
+      "D.table_2": {
+        "columns": [
+          { "key": "region", "header": "Region" },
+          { "key": "imdrf_problem_code_term", "header": "IMDRF Problem Code & Term" },
+          { "key": "n_current_period", "header": "N (current period)" },
+          { "key": "rate_percent", "header": "Rate (%)" },
+          { "key": "complaint_number", "header": "Complaint number" }
+        ]
+      },
+
+      "D.table_3": {
+        "columns": [
+          { "key": "region", "header": "Region" },
+          { "key": "imdrf_cause_code_term", "header": "IMDRF Cause Code & Term" },
+          { "key": "n_current_period", "header": "N (current period)" },
+          { "key": "rate_percent", "header": "Rate (%)" },
+          { "key": "complaint_number", "header": "Complaint number" }
+        ]
+      },
+
+      "D.table_4": {
+        "header_rows": 2,
+        "merged_cells": [
+          { "row": 0, "col_start": 0, "col_end": 1, "label": "IMDRF Adverse Event Health Impact (Annex F) code and term by region" }
+        ],
+        "columns": [
+          { "key": "region", "header": "Region" },
+          { "key": "imdrf_health_impact_annex_f_code_term", "header": "IMDRF Adverse Event Health Impact (Annex F) code and term" },
+          { "key": "number_of_serious_incidents", "header": "Number of serious incidents" },
+          { "key": "investigation_conclusion_1_percent", "header": "Investigation conclusion code+ term 1 %" },
+          { "key": "investigation_conclusion_2_percent", "header": "Investigation conclusion code+ term 2 %" },
+          { "key": "investigation_conclusion_3_percent", "header": "Investigation conclusion code+ term 3 %" },
+          { "key": "investigation_conclusion_4_percent", "header": "Investigation conclusion code+ term 4 %" }
+        ]
+      },
+
+      "H.table_8_fsca": {
+        "columns": [
+          { "key": "type_of_action", "header": "Type of action" },
+          { "key": "manufacturer_reference_number", "header": "Manufacturer Reference number" },
+          { "key": "issuing_date_or_date_of_final_fsn", "header": "Issuing Date / Date of Final FSN" },
+          { "key": "scope_of_fsca_device_models_within_scope", "header": "Scope of the FSCA/Device models within scope" },
+          { "key": "status_of_fsca", "header": "Status of the FSCA" },
+          { "key": "rationale_and_description_of_action_taken", "header": "Rationale and description of action taken" },
+          { "key": "impacted_regions", "header": "Impacted regions" },
+          { "key": "date_reported_to_mhra_if_applicable", "header": "Date reported to MHRA (if applicable)" }
+        ]
+      },
+
+      "I.table_9_capa": {
+        "columns": [
+          { "key": "capa_number_or_manufacturer_reference_number", "header": "CAPA Number / Manufacturer Reference Number" },
+          { "key": "initiation_date", "header": "Initiation Date" },
+          { "key": "scope_of_the_capa", "header": "Scope of the CAPA" },
+          { "key": "status_of_the_capa", "header": "Status of the CAPA" },
+          { "key": "capa_description", "header": "CAPA description" },
+          { "key": "root_cause", "header": "Root cause" },
+          { "key": "effectiveness_of_the_capa", "header": "Effectiveness of the CAPA" },
+          { "key": "target_date_for_completion_if_ongoing", "header": "Target date for completion if ongoing" }
+        ]
+      }
+    }
+  },
+
+  "theme": {
+    "word_form_fidelity": {
+      "fontFamily": "Arial",
+      "fontSizePt": 10,
+      "lineHeight": 1.15,
+      "sectionTitleWeight": 700,
+      "blockSpacingPx": 8,
+      "table": {
+        "border": "1px solid #000000",
+        "gridLines": true,
+        "headerWeight": 700,
+        "cellPaddingPx": 4
+      },
+      "inputs": {
+        "text": { "heightPx": 22 },
+        "textarea": { "minHeightPx": 72 },
+        "radioInline": true
+      }
+    }
+  }
+}

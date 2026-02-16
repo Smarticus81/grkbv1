@@ -1,0 +1,278 @@
+{
+  "templateId": "fixture_client_template_v1",
+  "name": "Fixture Client Template",
+  "clientId": "test_client",
+  "version": "1.0.0",
+  "type": "custom",
+  "sourceDocxPath": "C:\\Users\\tmuso\\OneDrive\\Printer Friendly Receipt Detail_files\\Desktop\\RacetoRev\\PSURMasterOSv1\\GRKBv1\\tests\\fixtures\\fixture_client_template_v1.docx",
+  "slots": [
+    {
+      "key": "meta.caseId",
+      "type": "text",
+      "required": true,
+      "label": "meta.caseId"
+    },
+    {
+      "key": "meta.deviceName",
+      "type": "text",
+      "required": true,
+      "label": "meta.deviceName"
+    },
+    {
+      "key": "meta.manufacturer",
+      "type": "text",
+      "required": true,
+      "label": "meta.manufacturer"
+    },
+    {
+      "key": "meta.periodStart",
+      "type": "text",
+      "required": true,
+      "label": "meta.periodStart"
+    },
+    {
+      "key": "meta.periodEnd",
+      "type": "text",
+      "required": true,
+      "label": "meta.periodEnd"
+    },
+    {
+      "key": "meta.psurVersion",
+      "type": "text",
+      "required": true,
+      "label": "meta.psurVersion"
+    },
+    {
+      "key": "meta.psurAuthor",
+      "type": "text",
+      "required": true,
+      "label": "meta.psurAuthor"
+    },
+    {
+      "key": "meta.notifiedBody",
+      "type": "text",
+      "required": true,
+      "label": "meta.notifiedBody"
+    },
+    {
+      "key": "meta.certificateNumber",
+      "type": "text",
+      "required": true,
+      "label": "meta.certificateNumber"
+    },
+    {
+      "key": "meta.reportDate",
+      "type": "text",
+      "required": true,
+      "label": "meta.reportDate"
+    },
+    {
+      "key": "S01.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S01"
+    },
+    {
+      "key": "S02.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S02"
+    },
+    {
+      "key": "S03.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S03"
+    },
+    {
+      "key": "S04.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S04"
+    },
+    {
+      "key": "S05.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S05"
+    },
+    {
+      "key": "S06.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S06"
+    },
+    {
+      "key": "S07.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S07"
+    },
+    {
+      "key": "S08.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S08"
+    },
+    {
+      "key": "S09.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S09"
+    },
+    {
+      "key": "S10.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S10"
+    },
+    {
+      "key": "S11.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S11"
+    },
+    {
+      "key": "S12.narrative",
+      "type": "richText",
+      "required": true,
+      "label": "Section S12"
+    },
+    {
+      "key": "A01.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A01"
+    },
+    {
+      "key": "A02.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A02"
+    },
+    {
+      "key": "A03.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A03"
+    },
+    {
+      "key": "A04.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A04"
+    },
+    {
+      "key": "A05.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A05"
+    },
+    {
+      "key": "A06.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A06"
+    },
+    {
+      "key": "A07.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A07"
+    },
+    {
+      "key": "A08.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A08"
+    },
+    {
+      "key": "A09.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A09"
+    },
+    {
+      "key": "A10.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A10"
+    },
+    {
+      "key": "A11.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A11"
+    },
+    {
+      "key": "A12.rows",
+      "type": "table",
+      "required": true,
+      "label": "Table A12"
+    },
+    {
+      "key": "trend_chart",
+      "type": "image",
+      "required": false,
+      "label": "Trend Chart"
+    },
+    {
+      "key": "audit.dtrRecords",
+      "type": "text",
+      "required": true,
+      "label": "DTR Records"
+    },
+    {
+      "key": "audit.chainValid",
+      "type": "text",
+      "required": true,
+      "label": "Chain Valid"
+    },
+    {
+      "key": "audit.merkleRoot",
+      "type": "text",
+      "required": true,
+      "label": "Merkle Root"
+    }
+  ],
+  "mappingRules": {
+    "meta.caseId": "meta.caseId",
+    "meta.deviceName": "meta.deviceName",
+    "meta.manufacturer": "meta.manufacturer",
+    "meta.periodStart": "meta.periodStart",
+    "meta.periodEnd": "meta.periodEnd",
+    "meta.psurVersion": "meta.psurVersion",
+    "meta.psurAuthor": "meta.psurAuthor",
+    "meta.notifiedBody": "meta.notifiedBody",
+    "meta.certificateNumber": "meta.certificateNumber",
+    "meta.reportDate": "meta.reportDate",
+    "S01.narrative": "S01.narrative",
+    "S02.narrative": "S02.narrative",
+    "S03.narrative": "S03.narrative",
+    "S04.narrative": "S04.narrative",
+    "S05.narrative": "S05.narrative",
+    "S06.narrative": "S06.narrative",
+    "S07.narrative": "S07.narrative",
+    "S08.narrative": "S08.narrative",
+    "S09.narrative": "S09.narrative",
+    "S10.narrative": "S10.narrative",
+    "S11.narrative": "S11.narrative",
+    "S12.narrative": "S12.narrative",
+    "A01.rows": "A01.rows",
+    "A02.rows": "A02.rows",
+    "A03.rows": "A03.rows",
+    "A04.rows": "A04.rows",
+    "A05.rows": "A05.rows",
+    "A06.rows": "A06.rows",
+    "A07.rows": "A07.rows",
+    "A08.rows": "A08.rows",
+    "A09.rows": "A09.rows",
+    "A10.rows": "A10.rows",
+    "A11.rows": "A11.rows",
+    "A12.rows": "A12.rows",
+    "trend_chart": "trend_chart",
+    "audit.dtrRecords": "audit.dtrRecords",
+    "audit.chainValid": "audit.chainValid",
+    "audit.merkleRoot": "audit.merkleRoot"
+  }
+}
